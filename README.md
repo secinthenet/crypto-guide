@@ -1,10 +1,10 @@
-# Secure cryptocurrency management
+# Cryptocoins management guide
 
 > ⚠️ **NOTE**: WIP.
 
 ## Goals
 
--   Serve as a guide for secure storage and transacting of cryptocurrencies.
+-   Serve as a guide for secure storage and transacting of cryptocoins.
 -   Avoid any novelty. It's basically bits and pieces from the web, organized in
     a way that I personally find clear.
 -   Use simple, clear, and succinct language.
@@ -15,8 +15,8 @@
 
 ## Non-Goals
 
--   Cover the purchase of cryptocurrencies. Only secure storage and transacting
-    are in scope.
+-   Cover the purchase of cryptocoins. Only secure storage and transacting are
+    in scope.
 -   Be friendly to novices. This guide aims to be succinct and assumes
     familiarly with concepts such as HD wallets, BIP32/39/43/44/45, Segwit, and
     Multisig wallets. If those don't mean much to you, this guide is probably
