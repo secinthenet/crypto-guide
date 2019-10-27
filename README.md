@@ -249,6 +249,14 @@ See references below for implementation options.
     existing mnemonic.
 -   [github.com/trezor/python-mnemonic](https://github.com/trezor/python-mnemonic)
 -   [github.com/tyler-smith/go-bip39](https://github.com/tyler-smith/go-bip39)
+-   [github.com/taelfrinn/Bip39-diceware](https://github.com/taelfrinn/Bip39-diceware):
+    mapping from a coin flip and 4 dice rolls to BIP39 words. Can be used to
+    generate the first `N-1` words in a BIP39 mnemonic, similar to the Diceware
+    method for generating passwords. Note that the last word in a BIP39 mnemonic
+    is a checksum and therefore cannot be randomly generated. To get the last
+    word, you will have to use a script that tries all the words, similar to
+    [this script](https://github.com/jonathancross/jc-docs/blob/master/BIP39_Seed_Phrase_Checksum.py)
+    by Jonathan Cross.
 
 ### Air-gapped communication
 
