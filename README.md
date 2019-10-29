@@ -234,10 +234,11 @@ See references below for implementation options.
 -   [Reliably generating good passwords](https://lwn.net/Articles/713806/): LWN
     article from 2017-02-08.
 -   [github.com/micahflee/passphraseme](https://github.com/micahflee/passphraseme):
--   [github.com/ulif/diceware](https://github.com/ulif/diceware): python
-    implementation of the diceware method.
+-   [github.com/ulif/diceware](https://github.com/ulif/diceware): python script
+    for generation Diceware passphrases. Supports improved word lists published
+    by the EFF in 2016. implementation of the Diceware method.
 -   [github.com/sethvargo/go-diceware](https://github.com/sethvargo/go-diceware):
-    golang library implementing the diceware method.
+    golang library implementing the Diceware method.
 -   [github.com/sethvargo/go-password](https://github.com/sethvargo/go-password):
     golang library for generating "standard" passwords with restrictions
     (minimum number of digits, etc.).
