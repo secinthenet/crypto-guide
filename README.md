@@ -38,6 +38,8 @@ trust strangers on the internet with anything important.
 -   Follow established protocols and stick to standards.
 -   Avoid single points of failure.
 -   Defense in depth.
+-   Least privilege.
+-   Compartmentalization.
 
 ## Threat model
 
