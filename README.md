@@ -302,7 +302,7 @@ currencies.
 
 Trezor seems better to me since it's fully OSS (hardware, firmware, and
 software), and both of the founders have been active in the Bitcoin community
-for a long time and seem to have a good reputation. That said, Ledger had at
+for a long time and seem to have a good reputation. That said, Trezor had at
 least one critical issue in the past—it
 [stored the device PIN in plaintext](https://news.ycombinator.com/item?id=15589718).
 To their defense, they quickly fix reported security issues, and are responsive
