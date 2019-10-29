@@ -361,6 +361,28 @@ section for more details.
     Shows how to use multiple hardware wallets with multisig using Electrum, so
     that M/N wallets are required for signing transactions.
 
+### Operation systems for cold storage
+
+_Note_: "Live OS" means that the OS is designed to be run on any computer by
+booting it from a USB stick or DVD.
+
+-   [Tails](https://tails.boum.org/) - Live Linux distro focused on privacy and
+    anonymity and designed to leave no trace on the computers it's used on. All
+    internet connections are forced to go through Tor. Bundled with Electrum.
+    Seems to be the best maintained security/privacy focused OS based on git
+    activity.
+-   [BitKey](https://github.com/bitkey/bitkey) - Live Linux distro with built-in
+    software for processing cryptocoins such as wallets, password managers, QR
+    code generator, etc. As of 2019-10-29, it doesn't look maintained.
+-   [Qubes OS](https://www.qubes-os.org/) - OS architecture that heavily uses
+    compartmentalization to improve security. Usually runs a Debian distro. Has
+    relatively strict
+    [hardware limitations](https://www.qubes-os.org/doc/system-requirements/).
+-   [Whonix](https://www.whonix.org/): TODO.
+-   [Kodachi](https://github.com/WMAL/kodachi): Live Linux distro similar to
+    Tails - amnesic by default (no data persistence) and uses Tor to route all
+    traffic. Doesn't look maintained based on Github activity.
+
 ### General
 
 -   Reusing an address for withdrawals introduces risks and should be avoided.
