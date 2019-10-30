@@ -4,6 +4,7 @@
 
 ## Table of Contents
 
+-   [Table of Contents](#table-of-contents)
 -   [Goals](#goals)
 -   [Non-Goals](#non-goals)
 -   [Disclaimer](#disclaimer)
@@ -28,8 +29,10 @@
     -   [Air-gapped communication](#air-gapped-communication)
         -   [Audible](#audible)
         -   [Visual](#visual)
-    -   [Desktop software wallets](#desktop-software-wallets)
-    -   [Mobile software wallets](#mobile-software-wallets)
+    -   [Software wallets](#software-wallets)
+        -   [Desktop](#desktop)
+        -   [Web](#web)
+        -   [Mobile](#mobile)
     -   [Hardware wallets](#hardware-wallets)
         -   [Other references](#other-references)
     -   [Cold storage methods](#cold-storage-methods)
@@ -315,8 +318,11 @@ See references below for implementation options.
 -   [Guide on using Electrum and QR codes](https://medium.com/@fbonomi/a-bitcoin-cold-wallet-based-on-qr-codes-e8c130b3181f)
     for air-gapped transactions.
 
-### Desktop software wallets
+### Software wallets
 
+#### Desktop
+
+-   [Bitcoin Core](https://bitcoin.org/en/bitcoin-core/)
 -   [Electrum](https://electrum.org/#home): one of the most popular bitcoin
     wallets. I'm worried about its security and privacy
     ([see this HN thread](https://news.ycombinator.com/item?id=18770577#18771112)),
@@ -325,12 +331,16 @@ See references below for implementation options.
         re-implementation of Electrum Server in Rust. Great performance and
         codebase looks high quality.
 -   [Wasabi](https://github.com/zkSNACKs/WalletWasabi/): privacy focused bitcoin
-    wallet support CoinJoin.
--   [Bitcoin Core](https://bitcoin.org/en/bitcoin-core/)
+    wallet support CoinJoin. As of 2019-10-30, seems to have very active
+    development.
+
+#### Web
+
 -   [MyEtherWallet](https://github.com/MyEtherWallet/MyEtherWallet)
 -   [MyCrypto](https://github.com/MyCryptoHQ/MyCrypto)
+-   [coinbin](https://github.com/OutCast3k/coinbin/)
 
-### Mobile software wallets
+#### Mobile
 
 -   [Samourai Android Wallet](https://github.com/Samourai-Wallet/samourai-wallet-android)
 
@@ -361,7 +371,11 @@ section for more details.
 -   [Bitcoin Multisig Hardware Wallet Comparison](https://bitcoin-hardware-wallet.github.io/):
     notably, the Trezor One is missing.
 -   [HWI](https://github.com/bitcoin-core/HWI): python library and CLI for
-    interacting with hardware wallets, compatible with multiple models.
+    interacting with hardware wallets in a unified way, compatible with multiple
+    models.
+-   [Junction](https://github.com/justinmoon/junction): GUI for using hardware
+    wallets with Bitcoin Core. Uses HWI to interface with hardware wallets. As
+    of 2019-10-30, seems to be testnest only, and undergoing heavy development.
 
 ### Cold storage methods
 
