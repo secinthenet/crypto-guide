@@ -211,6 +211,9 @@ A similar option is to use SSS to split a _passphrase_ to the seed, instead of
 the seed itself. The advantage of doing this is that the passphrase is usually
 smaller, so the SSS shares will also be smaller and easier to store.
 
+See [SLIP-0039](https://github.com/satoshilabs/slips/blob/master/slip-0039.md)
+for more details on this approach.
+
 ### Multisig seeds
 
 Using ([BIP45](https://github.com/bitcoin/bips/blob/master/bip-0045.mediawiki)),
