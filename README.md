@@ -2,6 +2,41 @@
 
 > ⚠️ **NOTE**: WIP.
 
+## Table of Contents
+
+-   [Goals](#goals)
+-   [Non-Goals](#non-goals)
+-   [Disclaimer](#disclaimer)
+-   [Principles](#principles)
+-   [Threat model](#threat-model)
+    -   [Secrets](#secrets)
+-   [Overview](#overview)
+    -   [Creating a wallet](#creating-a-wallet)
+    -   [Spending funds](#spending-funds)
+    -   [Receiving funds](#receiving-funds)
+-   [Generating secrets](#generating-secrets)
+-   [Storing seeds](#storing-seeds)
+-   [Encrypting seeds at rest](#encrypting-seeds-at-rest)
+    -   [Passphrase](#passphrase)
+    -   [Split seeds](#split-seeds)
+    -   [Multisig seeds](#multisig-seeds)
+    -   [Discussion: split vs multisig seeds](#discussion-split-vs-multisig-seeds)
+-   [Secure air-gapped communication](#secure-air-gapped-communication)
+-   [Notes and references](#notes-and-references)
+    -   [Passphrase generation](#passphrase-generation)
+    -   [Seed generation](#seed-generation)
+    -   [Air-gapped communication](#air-gapped-communication)
+        -   [Audible](#audible)
+        -   [Visual](#visual)
+    -   [Desktop software wallets](#desktop-software-wallets)
+    -   [Mobile software wallets](#mobile-software-wallets)
+    -   [Hardware wallets](#hardware-wallets)
+        -   [Other references](#other-references)
+    -   [Cold storage methods](#cold-storage-methods)
+    -   [Multisig and splitting secrets](#multisig-and-splitting-secrets)
+    -   [Operation systems for cold storage](#operation-systems-for-cold-storage)
+    -   [General](#general)
+
 ## Goals
 
 -   Serve as a guide for secure storage and transacting of cryptocoins.
@@ -280,7 +315,7 @@ See references below for implementation options.
 -   [Guide on using Electrum and QR codes](https://medium.com/@fbonomi/a-bitcoin-cold-wallet-based-on-qr-codes-e8c130b3181f)
     for air-gapped transactions.
 
-### Software wallets
+### Desktop software wallets
 
 -   [Electrum](https://electrum.org/#home): one of the most popular bitcoin
     wallets. I'm worried about its security and privacy
@@ -289,11 +324,13 @@ See references below for implementation options.
     -   [electrs](https://github.com/romanz/electrs): An efficient
         re-implementation of Electrum Server in Rust. Great performance and
         codebase looks high quality.
+-   [Wasabi](https://github.com/zkSNACKs/WalletWasabi/): privacy focused bitcoin
+    wallet support CoinJoin.
 -   [Bitcoin Core](https://bitcoin.org/en/bitcoin-core/)
 -   [MyEtherWallet](https://github.com/MyEtherWallet/MyEtherWallet)
 -   [MyCrypto](https://github.com/MyCryptoHQ/MyCrypto)
 
-### Mobile wallets
+### Mobile software wallets
 
 -   [Samourai Android Wallet](https://github.com/Samourai-Wallet/samourai-wallet-android)
 
