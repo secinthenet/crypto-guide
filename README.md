@@ -411,11 +411,15 @@ section for more details.
 -   [Guide on using Shamir's Secret Sharing](https://medium.com/@markstar/backup-your-trezor-ledger-using-shamirs-secret-sharing-972e98101839)
     to back up the BIP39 seed.
 -   [python-shamir-mnemonic](https://github.com/trezor/python-shamir-mnemonic):
-    reference implementation of SLIP-0039: Shamir's Secret-Sharing for Mnemonic
-    Codes.
+    reference implementation of
+    [SLIP-0039](https://github.com/satoshilabs/slips/blob/master/slip-0039.md):
+    Shamir's Secret-Sharing for Mnemonic Codes.
 -   [Multisig hardware wallets guide](https://saleemrashid.com/2018/01/27/hardware-wallet-electrum-multisig/):
     Shows how to use multiple hardware wallets with multisig using Electrum, so
     that M/N wallets are required for signing transactions.
+-   [Hermit](https://github.com/unchained-capital/hermit): CLI wallet
+    implementing [split seeds](#split-seeds) following
+    [SLIP-0039](https://github.com/satoshilabs/slips/blob/master/slip-0039.md).
 
 ### Operation systems for cold storage
 
