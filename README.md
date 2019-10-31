@@ -132,6 +132,10 @@ individual private keys.
 
 -   Generate new address in a hot wallet and provide it to the sender.
 
+### Testing backups
+
+TODO
+
 ## Generating secrets
 
 Highly unpredictable secret generation is critical for the security of
