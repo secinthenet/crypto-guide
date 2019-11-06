@@ -456,6 +456,8 @@ booting it from a USB stick or DVD.
 
 ### General
 
+-   [Blockstream.info](https://blockstream.info/) is a good open source block
+    explorer.
 -   Reusing an address for withdrawals introduces risks and should be avoided.
     See details in
     [Glacier's design doc](https://glacierprotocol.org/assets/design-doc-v0.9-beta.pdf),
