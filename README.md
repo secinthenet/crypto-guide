@@ -338,6 +338,7 @@ See references below for implementation options.
     -   [electrs](https://github.com/romanz/electrs): An efficient
         re-implementation of Electrum Server in Rust. Great performance and
         codebase looks high quality.
+-   [Copay](https://github.com/bitpay/copay): TODO
 -   [Wasabi](https://github.com/zkSNACKs/WalletWasabi/): privacy focused bitcoin
     wallet support CoinJoin. As of 2019-10-30, seems to have very active
     development.
@@ -352,6 +353,7 @@ See references below for implementation options.
 
 -   [List from bitcoin.org](https://bitcoin.org/en/choose-your-wallet?step=5&platform=android)
     for Android
+-   [Copay](https://github.com/bitpay/copay): TODO
 -   [Samourai Android Wallet](https://github.com/Samourai-Wallet/samourai-wallet-android)
 
 ### Hardware wallets
