@@ -329,6 +329,7 @@ See references below for implementation options.
 
 #### Desktop
 
+-   [List from bitcoin.org](https://bitcoin.org/en/choose-your-wallet?step=5&platform=linux)
 -   [Bitcoin Core](https://bitcoin.org/en/bitcoin-core/)
 -   [Electrum](https://electrum.org/#home): one of the most popular bitcoin
     wallets. I'm worried about its security and privacy
@@ -349,9 +350,15 @@ See references below for implementation options.
 
 #### Mobile
 
+-   [List from bitcoin.org](https://bitcoin.org/en/choose-your-wallet?step=5&platform=android)
+    for Android
 -   [Samourai Android Wallet](https://github.com/Samourai-Wallet/samourai-wallet-android)
 
 ### Hardware wallets
+
+-   [List from bitcoin.org](https://bitcoin.org/en/choose-your-wallet?step=5&platform=hardware)
+-   [Bitcoin Multisig Hardware Wallet Comparison](https://bitcoin-hardware-wallet.github.io/):
+    notably, the Trezor One is missing.
 
 The most popular wallet vendors are [Trezor](https://trezor.io/) and
 [Ledger](https://www.ledger.com/), and both support a large number of
@@ -375,8 +382,6 @@ section for more details.
 
 #### Other references
 
--   [Bitcoin Multisig Hardware Wallet Comparison](https://bitcoin-hardware-wallet.github.io/):
-    notably, the Trezor One is missing.
 -   [HWI](https://github.com/bitcoin-core/HWI): python library and CLI for
     interacting with hardware wallets in a unified way, compatible with multiple
     models.
