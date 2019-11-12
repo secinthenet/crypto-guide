@@ -335,7 +335,7 @@ See references below for implementation options.
     wallets. I'm worried about its security and privacy
     ([see this HN thread](https://news.ycombinator.com/item?id=18770577#18771112)),
     though some of the issues can be mitigated by running an Electrum Server.
-    -   [electrs](https://github.com/romanz/electrs): An efficient
+    -   [electrs](https://github.com/romanz/electrs): an efficient
         re-implementation of Electrum Server in Rust. Great performance and
         codebase looks high quality.
 -   [Copay](https://github.com/bitpay/copay): TODO
@@ -355,6 +355,11 @@ See references below for implementation options.
     for Android
 -   [Copay](https://github.com/bitpay/copay): TODO
 -   [Samourai Android Wallet](https://github.com/Samourai-Wallet/samourai-wallet-android)
+
+#### Misc
+
+-   [xpub-converter](https://github.com/Casa/xpub-converter): Web tool for
+    converting extended public keys between different versions.
 
 ### Hardware wallets
 
