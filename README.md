@@ -455,7 +455,10 @@ booting it from a USB stick or DVD.
 -   [Qubes OS](https://www.qubes-os.org/) - OS architecture that heavily uses
     compartmentalization to improve security. Usually runs a Debian distro. Has
     relatively strict
-    [hardware limitations](https://www.qubes-os.org/doc/system-requirements/).
+    -   [qubes-whonix-bitcoin](https://github.com/qubenix/qubes-whonix-bitcoin):
+        guide for using Qubes and Whonix to run Electrum in an offline VM,
+        connected to a separate VM serving an Electrum personal server.
+        [hardware limitations](https://www.qubes-os.org/doc/system-requirements/).
 -   [Whonix](https://www.whonix.org/): TODO.
 -   [Kodachi](https://github.com/WMAL/kodachi): Live Linux distro similar to
     Tails - amnesic by default (no data persistence) and uses Tor to route all
