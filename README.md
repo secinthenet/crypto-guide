@@ -436,6 +436,7 @@ section for more details.
 -   [Hermit](https://github.com/unchained-capital/hermit): CLI wallet
     implementing [split seeds](#split-seeds) following
     [SLIP-0039](https://github.com/satoshilabs/slips/blob/master/slip-0039.md).
+-   [firma](https://github.com/RCasatta/firma): PSBT signer.
 -   [github.com/blockstack/secret-sharing](https://github.com/blockstack/secret-sharing):
     SSS implementation in Python. Doesn't look maintained since early 2016.
 
