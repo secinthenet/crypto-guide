@@ -82,8 +82,12 @@ trust strangers on the internet with anything important.
 ## Threat model
 
 -   Malware and attacks originating from the Internet have a very high risk. Any
-    malware infection in a device that handles secrets is assumed to fully
-    compromise the secrets.
+    malware infection in a device that handles secrets can compromise all the
+    secrets the device holds, and possibly other secrets in devices with
+    physical proximity.
+-   Human errors in executing protocols are highly likely.
+-   Any physical location can be compromised, whether by theft or physical
+    damage.
 -   Physical attacks have a low risk, but defending against simple ones
     (burglars and thieves) is in scope.
 -   Physical attacks by a sophisticated adversary are out of scope.
