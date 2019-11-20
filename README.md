@@ -237,7 +237,7 @@ and the newer
     ([BIP45](https://github.com/bitcoin/bips/blob/master/bip-0045.mediawiki)),
     while split seeds require custom software. This means that multisig seeds
     are likely to have better software support over time. For example, they are
-    already supported by wallets.
+    already supported by a few wallets.
 -   When the secrets are stored in **cold storage**, both split and multisig
     require `M/N` shares to spend funds. In both cases, the user can choose `M`
     and `N` to fit their specific security requirements.
@@ -256,6 +256,8 @@ and the newer
 -   Multisig seeds require `M` signatures for every transaction. Using split
     seeds requires `M` shares to reconstruct the seed, but from that point the
     reconstructed seed can be used to sign any number of transactions.
+-   Multisig seeds do not yet support multiple coins in a standardized way
+    (BIP45 specifies derivation paths that are specific to a single coin).
 
 ## Secure air-gapped communication
 
@@ -478,8 +480,8 @@ booting it from a USB stick or DVD.
     [Glacier's design doc](https://glacierprotocol.org/assets/design-doc-v0.9-beta.pdf),
     section "Address Reuse and HD Wallets", page 20.
 -   When typing passwords, you can increase the security by doing some of the
-    typing with a virtual keyboard, which is less susceptible to hardware
-    key loggers and some audio side channel attacks.
+    typing with a virtual keyboard, which is less susceptible to hardware key
+    loggers and some audio side channel attacks.
 -   As of 2019-09-10, it seems that using multisig is still not easy with BTC.
     bitcoin-core added support for
     [BIP-174](https://github.com/bitcoin/bips/blob/master/bip-0174.mediawiki)
