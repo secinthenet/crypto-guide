@@ -298,11 +298,15 @@ See references below for implementation options.
 
 ### Seed generation
 
--   [github.com/iancoleman/bip39](https://github.com/iancoleman/bip39): can be
-    used for generating BIP39 mnemonics or generating the private keys from an
-    existing mnemonic.
--   [github.com/trezor/python-mnemonic](https://github.com/trezor/python-mnemonic)
--   [github.com/tyler-smith/go-bip39](https://github.com/tyler-smith/go-bip39)
+-   [github.com/iancoleman/bip39](https://github.com/iancoleman/bip39): web tool
+    for generating BIP39 mnemonics or generating the private keys from an
+    existing mnemonic or external entropy. Can be used offline.
+-   [github.com/bip32JP/bip32JP.github.io](https://github.com/bip32JP/bip32JP.github.io):
+    similar to above.
+-   [github.com/trezor/python-mnemonic](https://github.com/trezor/python-mnemonic):
+    reference implementation for BIP39 by Trezor.
+-   [github.com/tyler-smith/go-bip39](https://github.com/tyler-smith/go-bip39):
+    golang implementation of bip39.
 -   [github.com/taelfrinn/Bip39-diceware](https://github.com/taelfrinn/Bip39-diceware):
     mapping from a coin flip and 4 dice rolls to BIP39 words. Can be used to
     generate the first `N-1` words in a BIP39 mnemonic, similar to the Diceware
