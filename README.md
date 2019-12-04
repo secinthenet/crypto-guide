@@ -352,6 +352,9 @@ See references below for implementation options.
 -   [Wasabi](https://github.com/zkSNACKs/WalletWasabi/): privacy focused bitcoin
     wallet support CoinJoin. As of 2019-10-30, seems to have very active
     development.
+-   [gowallet](https://github.com/aiportal/gowallet): cross platform TUI wallet
+    written in golang. As of 2019-12-04, doesn't look maintained, and uses
+    custom cryptography.
 
 #### Web
 
@@ -366,10 +369,19 @@ See references below for implementation options.
 -   [Copay](https://github.com/bitpay/copay): TODO
 -   [Samourai Android Wallet](https://github.com/Samourai-Wallet/samourai-wallet-android)
 
-#### Misc
+#### Utilities
 
--   [xpub-converter](https://github.com/Casa/xpub-converter): Web tool for
+-   [xpub-converter](https://github.com/Casa/xpub-converter): web tool for
     converting extended public keys between different versions.
+-   [Beancounter](https://github.com/square/beancounter): utility to audit the
+    balance of Hierarchical Deterministic (HD) wallets. Supports multisig +
+    segwit wallets.
+-   [go-ethereum-hdwallet](https://github.com/miguelmota/go-ethereum-hdwallet):
+    golang library to compute BIP32 derivations with an emphasis on Ethereum. As
+    of 2019-12-04, looks tested and maintained.
+-   [pywallet](https://github.com/ranaroussi/pywallet): HD wallet creator that
+    supports BIP44 (but requires forking to support BIP49). As of 2019-12-04,
+    has many open issues with no response from the author.
 
 ### Hardware wallets
 
@@ -432,23 +444,27 @@ section for more details.
     requires multiple approvals for withdrawing funds and a time delay. Claims
     that 98% of the funds are stored offline.
 
-### Multisig and splitting secrets
+### Split HD seeds and secret sharing
 
--   [Guide on using Shamir's Secret Sharing](https://medium.com/@markstar/backup-your-trezor-ledger-using-shamirs-secret-sharing-972e98101839)
-    to back up the BIP39 seed.
 -   [python-shamir-mnemonic](https://github.com/trezor/python-shamir-mnemonic):
     reference implementation of
     [SLIP-0039](https://github.com/satoshilabs/slips/blob/master/slip-0039.md):
     Shamir's Secret-Sharing for Mnemonic Codes.
--   [Multisig hardware wallets guide](https://saleemrashid.com/2018/01/27/hardware-wallet-electrum-multisig/):
-    Shows how to use multiple hardware wallets with multisig using Electrum, so
-    that M/N wallets are required for signing transactions.
 -   [Hermit](https://github.com/unchained-capital/hermit): CLI wallet
     implementing [split seeds](#split-seeds) following
     [SLIP-0039](https://github.com/satoshilabs/slips/blob/master/slip-0039.md).
--   [firma](https://github.com/RCasatta/firma): PSBT signer.
+-   [Guide on using Shamir's Secret Sharing](https://medium.com/@markstar/backup-your-trezor-ledger-using-shamirs-secret-sharing-972e98101839)
+    to back up the BIP39 seed. Uses a non-standardized SSS implementation, so
+    SLIP39 should be preferred.
 -   [github.com/blockstack/secret-sharing](https://github.com/blockstack/secret-sharing):
     SSS implementation in Python. Doesn't look maintained since early 2016.
+
+### Multisig HD seeds
+
+-   [Multisig hardware wallets guide](https://saleemrashid.com/2018/01/27/hardware-wallet-electrum-multisig/):
+    Shows how to use multiple hardware wallets with multisig using Electrum, so
+    that M/N wallets are required for signing transactions.
+-   [firma](https://github.com/RCasatta/firma): PSBT signer.
 
 ### Operation systems for cold storage
 
