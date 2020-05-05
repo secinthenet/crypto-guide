@@ -450,6 +450,7 @@ section for more details.
     reference implementation of
     [SLIP-0039](https://github.com/satoshilabs/slips/blob/master/slip-0039.md):
     Shamir's Secret-Sharing for Mnemonic Codes.
+-   [github.com/iancoleman/slip39](https://github.com/iancoleman/slip39)
 -   [Hermit](https://github.com/unchained-capital/hermit): CLI wallet
     implementing [split seeds](#split-seeds) following
     [SLIP-0039](https://github.com/satoshilabs/slips/blob/master/slip-0039.md).
