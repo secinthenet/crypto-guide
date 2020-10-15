@@ -282,6 +282,36 @@ See references below for implementation options.
 
 ## Notes and references
 
+### Cold storage protocols
+
+-   [Glacier protocol](https://glacierprotocol.org/): I reviewed the
+    [design document](https://glacierprotocol.org/assets/design-doc-v0.9-beta.pdf)
+    and it looked good. The main issues with it are that it doesn't use HD
+    wallets (didn't have time to review it before the release), and doesn't look
+    maintained since early 2018.
+-   [Subzero](https://github.com/square/subzero): Square's cold storage solution
+    using HSMs for storage, QR codes for hot/cold storage communication, with
+    multiple signatures required. Applied specifically to Square's hardware
+    setup, but the ideas are general and the documentation is clear.
+-   [10x Security Bitcoin Guide](https://btcguide.github.io): Bitcoin security
+    guide by Michael Flaxman advocating for multisig seeds managed by hardware
+    wallets from different vendors.
+    -   [How should I store my bitcoin?](https://medium.com/@michaelflaxman/how-should-i-store-my-bitcoin-43874ac208e4):
+        good article by Michael Flaxman, published on 2017-09-28.
+-   [SmartCustody](https://www.smartcustody.com/): Book by Blockchain Commons.
+-   [Advanced: Creating a Secure Wallet by Tomshwom](https://support.mycrypto.com/staying-safe/advanced-secure-wallets-by-tomshwom):
+    good guide for generating keys on an air gapped computer booting Tails. The
+    guide agrees that hardware wallets are a very good option, but tries to
+    avoid them due to their cost.
+-   [grayolson's guide for cryptocoins cold storage](https://steemit.com/cryptocurrency/@grayolson/how-to-cold-store-your-bitcoin-ethereum-altcoins-not-in-a-hardware-paper-wallet):
+    advocates storing encrypted private keys in the cloud (Dropbox etc),
+    encrypted with a strong Diceware password. Uses Tails on an air gapped
+    computer to generate the keys. Most of the content is pretty good but I
+    don't like the general strategy of storing the sensitive data online.
+-   [Coinbase Vault](https://www.coinbase.com/vault): managed wallet that
+    requires multiple approvals for withdrawing funds and a time delay. Claims
+    that 98% of the funds are stored offline.
+
 ### Passphrase generation
 
 -   [Reliably generating good passwords](https://lwn.net/Articles/713806/): LWN
@@ -427,36 +457,6 @@ section for more details.
 -   [Junction](https://github.com/justinmoon/junction): GUI for using hardware
     wallets with Bitcoin Core. Uses HWI to interface with hardware wallets. As
     of 2019-10-30, seems to be testnest only, and undergoing heavy development.
-
-### Cold storage protocols
-
--   [Glacier protocol](https://glacierprotocol.org/): I reviewed the
-    [design document](https://glacierprotocol.org/assets/design-doc-v0.9-beta.pdf)
-    and it looked good. The main issues with it are that it doesn't use HD
-    wallets (didn't have time to review it before the release), and doesn't look
-    maintained since early 2018.
--   [Subzero](https://github.com/square/subzero): Square's cold storage solution
-    using HSMs for storage, QR codes for hot/cold storage communication, with
-    multiple signatures required. Applied specifically to Square's hardware
-    setup, but the ideas are general and the documentation is clear.
--   [10x Security Bitcoin Guide](https://btcguide.github.io): Bitcoin security
-    guide by Michael Flaxman advocating for multisig seeds managed by hardware
-    wallets from different vendors.
-    -   [How should I store my bitcoin?](https://medium.com/@michaelflaxman/how-should-i-store-my-bitcoin-43874ac208e4):
-        good article by Michael Flaxman, published on 2017-09-28.
--   [SmartCustody](https://www.smartcustody.com/): Book by Blockchain Commons.
--   [Advanced: Creating a Secure Wallet by Tomshwom](https://support.mycrypto.com/staying-safe/advanced-secure-wallets-by-tomshwom):
-    good guide for generating keys on an air gapped computer booting Tails. The
-    guide agrees that hardware wallets are a very good option, but tries to
-    avoid them due to their cost.
--   [grayolson's guide for cryptocoins cold storage](https://steemit.com/cryptocurrency/@grayolson/how-to-cold-store-your-bitcoin-ethereum-altcoins-not-in-a-hardware-paper-wallet):
-    advocates storing encrypted private keys in the cloud (Dropbox etc),
-    encrypted with a strong Diceware password. Uses Tails on an air gapped
-    computer to generate the keys. Most of the content is pretty good but I
-    don't like the general strategy of storing the sensitive data online.
--   [Coinbase Vault](https://www.coinbase.com/vault): managed wallet that
-    requires multiple approvals for withdrawing funds and a time delay. Claims
-    that 98% of the funds are stored offline.
 
 ### Split HD seeds and secret sharing
 
