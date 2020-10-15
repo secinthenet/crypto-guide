@@ -301,12 +301,14 @@ See references below for implementation options.
 -   [github.com/iancoleman/bip39](https://github.com/iancoleman/bip39): web tool
     for generating BIP39 mnemonics or generating the private keys from an
     existing mnemonic or external entropy. Can be used offline.
--   [github.com/bip32JP/bip32JP.github.io](https://github.com/bip32JP/bip32JP.github.io):
-    similar to above.
+-   [bc-seedtool-cli](https://github.com/BlockchainCommons/bc-seedtool-cli): CLI
+    tool for generating entropy and converting external entropy to different
+    formats (hex, bip39, binary, etc.). See also the
+    [comprehensive manual](https://github.com/BlockchainCommons/bc-seedtool-cli/blob/master/Docs/MANUAL.md).
 -   [github.com/trezor/python-mnemonic](https://github.com/trezor/python-mnemonic):
     reference implementation for BIP39 by Trezor.
 -   [github.com/tyler-smith/go-bip39](https://github.com/tyler-smith/go-bip39):
-    golang implementation of bip39.
+    golang implementation of BIP39.
 -   [github.com/taelfrinn/Bip39-diceware](https://github.com/taelfrinn/Bip39-diceware):
     mapping from a coin flip and 4 dice rolls to BIP39 words. Can be used to
     generate the first `N-1` words in a BIP39 mnemonic, similar to the Diceware
@@ -315,6 +317,19 @@ See references below for implementation options.
     word, you will have to use a script that tries all the words, similar to
     [this script](https://github.com/jonathancross/jc-docs/blob/master/BIP39_Seed_Phrase_Checksum.py)
     by Jonathan Cross.
+-   [github.com/bip32JP/bip32JP.github.io](https://github.com/bip32JP/bip32JP.github.io)
+
+### HD wallets address derivation
+
+-   [xpub-converter](https://github.com/Casa/xpub-converter): web tool for
+    converting extended public keys between different versions.
+-   [go-ethereum-hdwallet](https://github.com/miguelmota/go-ethereum-hdwallet):
+    golang library to compute BIP32 derivations with an emphasis on Ethereum. As
+    of 2019-12-04, looks tested and maintained.
+-   [bc-keytool-cli](https://github.com/BlockchainCommons/bc-keytool-cli)
+-   [pywallet](https://github.com/ranaroussi/pywallet): HD wallet creator that
+    supports BIP44 (but requires forking to support BIP49). As of 2019-12-04,
+    has many open issues with no response from the author.
 
 ### Air-gapped communication
 
@@ -335,12 +350,12 @@ See references below for implementation options.
 -   [Guide on using Electrum and QR codes](https://medium.com/@fbonomi/a-bitcoin-cold-wallet-based-on-qr-codes-e8c130b3181f)
     for air-gapped transactions.
 
-### Software wallets
-
-#### Desktop
+### Desktop wallets
 
 -   [List from bitcoin.org](https://bitcoin.org/en/choose-your-wallet?step=5&platform=linux)
 -   [Bitcoin Core](https://bitcoin.org/en/bitcoin-core/)
+-   [Specter Desktop](https://github.com/cryptoadvance/specter-desktop): A
+    desktop GUI for Bitcoin Core optimised to work with hardware wallets.
 -   [Electrum](https://electrum.org/#home): one of the most popular bitcoin
     wallets. I'm worried about its security and privacy
     ([see this HN thread](https://news.ycombinator.com/item?id=18770577#18771112)),
@@ -348,46 +363,41 @@ See references below for implementation options.
     -   [electrs](https://github.com/romanz/electrs): an efficient
         re-implementation of Electrum Server in Rust. Great performance and
         codebase looks high quality.
--   [Copay](https://github.com/bitpay/copay): TODO
--   [Wasabi](https://github.com/zkSNACKs/WalletWasabi/): privacy focused bitcoin
-    wallet support CoinJoin. As of 2019-10-30, seems to have very active
-    development.
--   [gowallet](https://github.com/aiportal/gowallet): cross platform TUI wallet
-    written in golang. As of 2019-12-04, doesn't look maintained, and uses
-    custom cryptography.
-
-#### Web
-
+-   [Beancounter](https://github.com/square/beancounter): utility for auditing
+    the balance of Hierarchical Deterministic (HD) wallets. Supports multisig +
+    segwit wallets.
 -   [MyEtherWallet](https://github.com/MyEtherWallet/MyEtherWallet)
 -   [MyCrypto](https://github.com/MyCryptoHQ/MyCrypto)
 -   [coinbin](https://github.com/OutCast3k/coinbin/)
+-   [Copay](https://github.com/bitpay/copay): TODO
+-   [Wasabi](https://github.com/zkSNACKs/WalletWasabi/): privacy focused bitcoin
+    wallet supporting CoinJoin. As of 2019-10-30, seems to have very active
+    development.
+-   [gowallet](https://github.com/aiportal/gowallet): cross platform TUI wallet
+    written in golang. Doesn't look maintained, and uses custom cryptography.
 
-#### Mobile
+### Mobile wallets
 
 -   [List from bitcoin.org](https://bitcoin.org/en/choose-your-wallet?step=5&platform=android)
     for Android
+-   [BlueWallet](https://github.com/BlueWallet/BlueWallet): Android and iOS
+    wallet with support for SegWit, RBF, and Lightning network.
 -   [Copay](https://github.com/bitpay/copay): TODO
 -   [Samourai Android Wallet](https://github.com/Samourai-Wallet/samourai-wallet-android)
-
-#### Utilities
-
--   [xpub-converter](https://github.com/Casa/xpub-converter): web tool for
-    converting extended public keys between different versions.
--   [Beancounter](https://github.com/square/beancounter): utility to audit the
-    balance of Hierarchical Deterministic (HD) wallets. Supports multisig +
-    segwit wallets.
--   [go-ethereum-hdwallet](https://github.com/miguelmota/go-ethereum-hdwallet):
-    golang library to compute BIP32 derivations with an emphasis on Ethereum. As
-    of 2019-12-04, looks tested and maintained.
--   [pywallet](https://github.com/ranaroussi/pywallet): HD wallet creator that
-    supports BIP44 (but requires forking to support BIP49). As of 2019-12-04,
-    has many open issues with no response from the author.
 
 ### Hardware wallets
 
 -   [List from bitcoin.org](https://bitcoin.org/en/choose-your-wallet?step=5&platform=hardware)
 -   [Bitcoin Multisig Hardware Wallet Comparison](https://bitcoin-hardware-wallet.github.io/):
     notably, the Trezor One is missing.
+-   <https://diybitcoinhardware.com>: references for building a DYI hardware
+    wallet
+    -   https://github.com/cryptoadvance/specter-diy
+    -   [Build a hardware wallet from scratch](https://github.com/stepansnigirev/workshop_advbitcoin)
+-   [LetheKit](https://github.com/BlockchainCommons/bc-lethekit): DYI crypto
+    device and hardware wallet from Blockchain Commons.
+-   [SatoChipApplet](https://github.com/Toporin/SatochipApplet): DIY wallet
+    based on a Java Card applet. Can be run on a Yubikey Neo.
 
 The most popular wallet vendors are [Trezor](https://trezor.io/) and
 [Ledger](https://www.ledger.com/), and both support a large number of
@@ -418,7 +428,7 @@ section for more details.
     wallets with Bitcoin Core. Uses HWI to interface with hardware wallets. As
     of 2019-10-30, seems to be testnest only, and undergoing heavy development.
 
-### Cold storage methods
+### Cold storage protocols
 
 -   [Glacier protocol](https://glacierprotocol.org/): I reviewed the
     [design document](https://glacierprotocol.org/assets/design-doc-v0.9-beta.pdf)
@@ -429,8 +439,12 @@ section for more details.
     using HSMs for storage, QR codes for hot/cold storage communication, with
     multiple signatures required. Applied specifically to Square's hardware
     setup, but the ideas are general and the documentation is clear.
--   [How should I store my bitcoin?](https://medium.com/@michaelflaxman/how-should-i-store-my-bitcoin-43874ac208e4):
-    good article from Michael Flaxman, published on 2017-09-28.
+-   [10x Security Bitcoin Guide](https://btcguide.github.io): Bitcoin security
+    guide by Michael Flaxman advocating for multisig seeds managed by hardware
+    wallets from different vendors.
+    -   [How should I store my bitcoin?](https://medium.com/@michaelflaxman/how-should-i-store-my-bitcoin-43874ac208e4):
+        good article by Michael Flaxman, published on 2017-09-28.
+-   [SmartCustody](https://www.smartcustody.com/): Book by Blockchain Commons.
 -   [Advanced: Creating a Secure Wallet by Tomshwom](https://support.mycrypto.com/staying-safe/advanced-secure-wallets-by-tomshwom):
     good guide for generating keys on an air gapped computer booting Tails. The
     guide agrees that hardware wallets are a very good option, but tries to
@@ -454,11 +468,25 @@ section for more details.
 -   [Hermit](https://github.com/unchained-capital/hermit): CLI wallet
     implementing [split seeds](#split-seeds) following
     [SLIP-0039](https://github.com/satoshilabs/slips/blob/master/slip-0039.md).
+-   [bc-slip39](https://github.com/BlockchainCommons/bc-slip39): SLIP-39
+    implementation in C from Blockchain Commons.
+-   [slip39-rust](https://github.com/Internet-of-People/slip39-rust): SLIP-39
+    implementation in Rust.
+
+#### Non standard implementations
+
+-   [shamir39](https://github.com/iancoleman/shamir39)
+-   [bc-shamir](https://github.com/BlockchainCommons/bc-shamir)
 -   [Guide on using Shamir's Secret Sharing](https://medium.com/@markstar/backup-your-trezor-ledger-using-shamirs-secret-sharing-972e98101839)
     to back up the BIP39 seed. Uses a non-standardized SSS implementation, so
-    SLIP39 should be preferred.
--   [github.com/blockstack/secret-sharing](https://github.com/blockstack/secret-sharing):
+    SLIP-39 should be preferred.
+-   [github.com/grempe/secrets.js](https://github.com/grempe/secrets.js): SSS
+    implementation in JavaScript. Reports that it successfully passed a security
+    audit. Latest real activity from September 2019.
+-   [github.com/shea256/secret-sharing](https://github.com/shea256/secret-sharing):
     SSS implementation in Python. Doesn't look maintained since early 2016.
+-   <http://point-at-infinity.org/ssss/>: SSS implementation from 2006. Looks
+    unmaintained.
 
 ### Multisig HD seeds
 
@@ -472,15 +500,18 @@ section for more details.
 _Note_: "Live OS" means that the OS is designed to be run on any computer by
 booting it from a USB stick or DVD.
 
--   [Tails](https://tails.boum.org/) - Live Linux distro focused on privacy and
+-   [Tails](https://tails.boum.org/): Live Linux distro focused on privacy and
     anonymity and designed to leave no trace on the computers it's used on. All
     internet connections are forced to go through Tor. Bundled with Electrum.
     Seems to be the best maintained security/privacy focused OS based on git
     activity.
--   [BitKey](https://github.com/bitkey/bitkey) - Live Linux distro with built-in
+-   [AirGap Vault Distribution](https://github.com/airgap-it/airgap-distro):
+    Debian-based Linux distro based on BitKey. Looks unmaintained, but the code
+    is very simple and can probably be updated easily.
+-   [BitKey](https://github.com/bitkey/bitkey): Live Linux distro with built-in
     software for processing cryptocoins such as wallets, password managers, QR
-    code generator, etc. As of 2019-10-29, it doesn't look maintained.
--   [Qubes OS](https://www.qubes-os.org/) - OS architecture that heavily uses
+    code generator, etc. Doesn't look maintained since mid 2018.
+-   [Qubes OS](https://www.qubes-os.org/): OS architecture that heavily uses
     compartmentalization to improve security. Usually runs a Debian distro. Has
     relatively strict
     -   [qubes-whonix-bitcoin](https://github.com/qubenix/qubes-whonix-bitcoin):
@@ -489,13 +520,14 @@ booting it from a USB stick or DVD.
         [hardware limitations](https://www.qubes-os.org/doc/system-requirements/).
 -   [Whonix](https://www.whonix.org/): TODO.
 -   [Kodachi](https://github.com/WMAL/kodachi): Live Linux distro similar to
-    Tails - amnesic by default (no data persistence) and uses Tor to route all
+    Tails: amnesic by default (no data persistence) and uses Tor to route all
     traffic. Doesn't look maintained based on Github activity.
 
 ### General
 
 -   [Blockstream.info](https://blockstream.info/) is a good open source block
     explorer.
+-   https://github.com/BlockchainCommons/Research
 -   Reusing an address for withdrawals introduces risks and should be avoided.
     See details in
     [Glacier's design doc](https://glacierprotocol.org/assets/design-doc-v0.9-beta.pdf),
