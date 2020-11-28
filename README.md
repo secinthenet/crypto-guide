@@ -158,6 +158,11 @@ level of security:
         default, i.e. be "amnesic").
     -   The OS should be loaded from a DVD instead of a USB flash drive since
         the former is more secure against modifications after the initial write.
+    -   Ideally, the computer will never be connected to the internet after it
+        was used to generate the secrets. This eliminates the risk that the
+        generated secret was stored in persisent memory (probably due to already
+        being compromised), and then transmitted to the attacker when connected
+        to the internet.
 -   Firmware/hardware generation on a special purpose security device such as a
     hardware wallet or an HSM.
 -   Casino grade dice. Pro: simple, malware resistant, easy to verify. Con:
@@ -505,6 +510,8 @@ booting it from a USB stick or DVD.
     internet connections are forced to go through Tor. Bundled with Electrum.
     Seems to be the best maintained security/privacy focused OS based on git
     activity.
+    -   <https://github.com/SovereignNode/tails-cold-storage>: A guide on
+        creating Bitcoin cold storage using Tails.
 -   [AirGap Vault Distribution](https://github.com/airgap-it/airgap-distro):
     Debian-based Linux distro based on BitKey. Looks unmaintained, but the code
     is very simple and can probably be updated easily.
