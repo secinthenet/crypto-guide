@@ -510,6 +510,8 @@ booting it from a USB stick or DVD.
     internet connections are forced to go through Tor. Bundled with Electrum.
     Seems to be the best maintained security/privacy focused OS based on git
     activity.
+    -   <https://github.com/PulpCattel/Tails-BitcoinCore-Wasabi>: A guide for
+        using Tails, Bitcoin core, and Wasabi to implement an offline wallet
     -   <https://github.com/SovereignNode/tails-cold-storage>: A guide on
         creating Bitcoin cold storage using Tails.
 -   [AirGap Vault Distribution](https://github.com/airgap-it/airgap-distro):
