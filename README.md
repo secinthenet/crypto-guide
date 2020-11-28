@@ -294,6 +294,12 @@ See references below for implementation options.
     and it looked good. The main issues with it are that it doesn't use HD
     wallets (didn't have time to review it before the release), and doesn't look
     maintained since early 2018.
+    -   [BitcoinHodler's fork of Glacier](https://github.com/bitcoinhodler/GlacierProtocol)
+        improves many things in Glacier and seems well maintained as of
+        2020-11-28.
+    -   [Proof Wallet](https://github.com/hodlwave/proof-wallet) is another
+        Glacier fork which adds support for HD wallets and sequential signing.
+        Seems maintained as of 2020-11-28.
 -   [Subzero](https://github.com/square/subzero): Square's cold storage solution
     using HSMs for storage, QR codes for hot/cold storage communication, with
     multiple signatures required. Applied specifically to Square's hardware
