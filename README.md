@@ -73,7 +73,8 @@ trust strangers on the internet with anything important.
 
 -   Minimize trust in external entities, hardware, firmware, and software.
 -   Maximize simplicity.
--   Follow established protocols and stick to standards.
+-   Follow established protocols and stick to adopted standards that have
+    multiple independent implementations.
 -   Avoid single points of failure.
 -   Defense in depth.
 -   Least privilege.
@@ -93,19 +94,34 @@ trust strangers on the internet with anything important.
 -   Physical attacks by a sophisticated adversary are out of scope.
 -   Social engineering is out of scope.
 
-### Secrets
+## Terminology
+
+-   BIP32 seed: the pseudo-random byte sequence of length 128-512 bits used in
+    the first step of BIP32's
+    [master key derivation](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki#master-key-generation).
+-   BIP32 root key: the extended private key at the top of the BIP32 hierarchy.
+    Usually denoted as `m` in BIP32 derivations.
+-   BIP39 entropy: an initial entropy of 128-512 bits used in
+    [BIP39's mnemonic generation](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki#generating-the-mnemonic).
+    Derives the mnemonic phrase by adding a checksum to the initial entropy and
+    then decoding the result using a word list.
+-   BIP39 mnemonic: the mnemonic phrase computed in BIP39 from the BIP39
+    entropy. This mnemonic is later hashed with an optional password to derive
+    the BIP32 seed.
+
+## Secrets
 
 In this doc, we refer to _secrets_ as information that can help an attacker to
 spend funds. This includes:
 
--   BIP32 seeds, stored as BIP39 mnemonics. These can be used to generate an
-    infinite number of private keys for multiple currencies.
+-   BIP32 seeds, typically backed up using BIP39 mnemonics. Can be used to
+    generate an infinite number of private keys for multiple currencies.
 -   Individual private keys which are generated independently (not from a BIP32
     seed). They are less flexible than BIP32 seeds since they are only
     associated to a single "account", but may have security advantages if BIP32
     turns out to have weaknesses.
--   Any passphrases for the above, for example an "additional word" for BIP39 or
-    a passphrase for BIP38 encrypted private keys.
+-   Any passphrases for the above, for example a passphrase for BIP39 or a
+    passphrase for BIP38 encrypted private keys.
 -   Public keys: knowing them makes it easier to retrieve the corresponding
     private key by exploiting a weakness in ECDSA, whereas knowing only the
     address adds another security layer: inverting a cryptographic hash.
@@ -189,7 +205,7 @@ XORing them).
     [durable paper](https://www.amazon.com/dp/B076JKVNWY/ref=cm_sw_r_cp_ep_dp_0f5GAbR8XZDSA)
     Glacier recommends, or a [Cryptosteel](https://cryptosteel.com/).
 -   Store the seeds in a safe place, for example a vault.
--   Consider using tamper-resistant seals.
+-   Consider using tamper-resistant seals to identify compromises.
 
 ## Encrypting seeds at rest
 
@@ -208,8 +224,10 @@ about backups!). Options include:
 
 -   On paper or other non-electronic form, in a **disjoint set of physical
     locations**.
--   In a password manager which is backed up to multiple devices.
 -   In multiple secure hardware devices such as Yubikeys or HSMs.
+-   In a password manager which is backed up to multiple devices. The con of
+    this method is that it may be impossible for your heirs to access the
+    password.
 
 ### Split seeds
 
@@ -229,12 +247,12 @@ for more details on this approach.
 
 ### Multisig seeds
 
-Using ([BIP45](https://github.com/bitcoin/bips/blob/master/bip-0045.mediawiki)),
-it's possible to generate `N` seeds so that each transaction requires signatures
-from private keys derived from `M` of the seeds. The equivalents for private
-keys are [BIP11](https://github.com/bitcoin/bips/blob/master/bip-0011.mediawiki)
-and the newer
-[BIP16](https://github.com/bitcoin/bips/blob/master/bip-0016.mediawiki).
+Using a method like
+[BIP45](https://github.com/bitcoin/bips/blob/master/bip-0045.mediawiki), it's
+possible to generate `N` seeds so that each transaction requires signatures from
+private keys derived from `M` of the seeds. The equivalents for private keys are
+[BIP11](https://github.com/bitcoin/bips/blob/master/bip-0011.mediawiki) and the
+newer [BIP16](https://github.com/bitcoin/bips/blob/master/bip-0016.mediawiki).
 
 ### Discussion: split vs multisig seeds
 
@@ -250,8 +268,8 @@ and the newer
     is sufficient information to spend funds in a single wallet/place, even when
     spending funds. When you want to spend funds, you generate a transaction,
     pass it to each of the wallets for signing, and then broadcast it to the
-    network. Importantly, any single wallet will not have sufficient information
-    to spend funds during the whole process. The upshot is that multisig seeds
+    network. Importantly, no single wallet will have sufficient information to
+    spend funds during the whole process. The upshot is that multisig seeds
     enable you to distribute trust among multiple wallets. For example, you can
     use both a Trezor and a Ledger, each having one multisig seed in a 1-of-2
     setup, and require signatures from both seeds to sign a transaction. Even if
@@ -327,7 +345,7 @@ See references below for implementation options.
 
 -   [Reliably generating good passwords](https://lwn.net/Articles/713806/): LWN
     article from 2017-02-08.
--   [github.com/micahflee/passphraseme](https://github.com/micahflee/passphraseme):
+-   [github.com/micahflee/passphraseme](https://github.com/micahflee/passphraseme)
 -   [github.com/ulif/diceware](https://github.com/ulif/diceware): python script
     for generation Diceware passphrases. Supports improved word lists published
     by the EFF in 2016. implementation of the Diceware method.
@@ -355,7 +373,9 @@ See references below for implementation options.
     generate the first `N-1` words in a BIP39 mnemonic, similar to the Diceware
     method for generating passwords. Note that the last word in a BIP39 mnemonic
     is a checksum and therefore cannot be randomly generated. To get the last
-    word, you will have to use a script that tries all the words, similar to
+    word, you will have to use something like
+    [seedpicker's](https://github.com/merland/seedpicker) last word calculator,
+    or a script that tries all the words, similar to
     [this script](https://github.com/jonathancross/jc-docs/blob/master/BIP39_Seed_Phrase_Checksum.py)
     by Jonathan Cross.
 -   [github.com/bip32JP/bip32JP.github.io](https://github.com/bip32JP/bip32JP.github.io)
@@ -384,12 +404,14 @@ See references below for implementation options.
 
 #### Visual
 
--   [air-gap](https://air-gap.it/): OSS mobile apps for managing the secrets in
-    a dedicated offline mobile phone, and then broadcasting transactions with
-    another "regular" internet connected mobile phone. Communication is done
-    with QR codes.
+-   [AirGap](https://airgap.it/): OSS mobile apps for managing the secrets in a
+    dedicated offline device, and then broadcasting transactions with another
+    "regular" internet connected device. Communication is done with QR codes.
 -   [Guide on using Electrum and QR codes](https://medium.com/@fbonomi/a-bitcoin-cold-wallet-based-on-qr-codes-e8c130b3181f)
     for air-gapped transactions.
+-   [Broadcast Transaction](https://github.com/JJandJ/Broadcast-Transaction):
+    Android app that supports broadcasting transactions via QR codes for BTC,
+    BCH, LTC, DASH, and ZCASH. Not updated since 2018-08-22.
 
 ### Desktop wallets
 
@@ -483,6 +505,8 @@ section for more details.
     implementation in C from Blockchain Commons.
 -   [slip39-rust](https://github.com/Internet-of-People/slip39-rust): SLIP-39
     implementation in Rust.
+-   https://github.com/dsprenkels/sss
+-   https://github.com/SSSaaS/sssa-golang
 
 #### Non standard implementations
 
