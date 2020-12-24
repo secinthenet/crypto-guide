@@ -10,11 +10,13 @@
 -   [Disclaimer](#disclaimer)
 -   [Principles](#principles)
 -   [Threat model](#threat-model)
-    -   [Secrets](#secrets)
+-   [Terminology](#terminology)
+-   [Secrets](#secrets)
 -   [Overview](#overview)
     -   [Creating a wallet](#creating-a-wallet)
     -   [Spending funds](#spending-funds)
     -   [Receiving funds](#receiving-funds)
+    -   [Testing backups](#testing-backups)
 -   [Generating secrets](#generating-secrets)
 -   [Storing seeds](#storing-seeds)
 -   [Encrypting seeds at rest](#encrypting-seeds-at-rest)
@@ -24,19 +26,20 @@
     -   [Discussion: split vs multisig seeds](#discussion-split-vs-multisig-seeds)
 -   [Secure air-gapped communication](#secure-air-gapped-communication)
 -   [Notes and references](#notes-and-references)
+    -   [Cold storage protocols](#cold-storage-protocols)
     -   [Passphrase generation](#passphrase-generation)
     -   [Seed generation](#seed-generation)
+    -   [HD wallets address derivation](#hd-wallets-address-derivation)
     -   [Air-gapped communication](#air-gapped-communication)
         -   [Audible](#audible)
         -   [Visual](#visual)
-    -   [Software wallets](#software-wallets)
-        -   [Desktop](#desktop)
-        -   [Web](#web)
-        -   [Mobile](#mobile)
+    -   [Desktop wallets](#desktop-wallets)
+    -   [Mobile wallets](#mobile-wallets)
     -   [Hardware wallets](#hardware-wallets)
         -   [Other references](#other-references)
-    -   [Cold storage methods](#cold-storage-methods)
-    -   [Multisig and splitting secrets](#multisig-and-splitting-secrets)
+    -   [Split HD seeds and secret sharing](#split-hd-seeds-and-secret-sharing)
+        -   [Non standard implementations](#non-standard-implementations)
+    -   [Multisig](#multisig)
     -   [Operation systems for cold storage](#operation-systems-for-cold-storage)
     -   [General](#general)
 
@@ -436,6 +439,7 @@ See references below for implementation options.
 -   [Wasabi](https://github.com/zkSNACKs/WalletWasabi/): privacy focused bitcoin
     wallet supporting CoinJoin. As of 2019-10-30, seems to have very active
     development.
+-   <https://github.com/gnosis/MultiSigWallet>: Ethereum multisig wallet
 -   [gowallet](https://github.com/aiportal/gowallet): cross platform TUI wallet
     written in golang. Doesn't look maintained, and uses custom cryptography.
 
@@ -523,11 +527,13 @@ section for more details.
 -   <http://point-at-infinity.org/ssss/>: SSS implementation from 2006. Looks
     unmaintained.
 
-### Multisig HD seeds
+### Multisig
 
 -   [Multisig hardware wallets guide](https://saleemrashid.com/2018/01/27/hardware-wallet-electrum-multisig/):
     Shows how to use multiple hardware wallets with multisig using Electrum, so
     that M/N wallets are required for signing transactions.
+-   [Ethereum multisig overview](https://medium.com/mycrypto/introduction-to-multisig-contracts-33d5b25134b2)
+    from 2020-01-16.
 -   [firma](https://github.com/RCasatta/firma): PSBT signer.
 
 ### Operation systems for cold storage
