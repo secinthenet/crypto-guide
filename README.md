@@ -439,7 +439,9 @@ See references below for implementation options.
 -   [Wasabi](https://github.com/zkSNACKs/WalletWasabi/): privacy focused bitcoin
     wallet supporting CoinJoin. As of 2019-10-30, seems to have very active
     development.
--   <https://github.com/gnosis/MultiSigWallet>: Ethereum multisig wallet
+-   [Gnosis Safe](https://gnosis-safe.io/): Ethereum wallet with support for
+    multisig with Trezor and Ledger
+    -   <https://github.com/gnosis/MultiSigWallet>: Older Gnosis multisig wallet
 -   [gowallet](https://github.com/aiportal/gowallet): cross platform TUI wallet
     written in golang. Doesn't look maintained, and uses custom cryptography.
 
@@ -455,8 +457,6 @@ See references below for implementation options.
 ### Hardware wallets
 
 -   [List from bitcoin.org](https://bitcoin.org/en/choose-your-wallet?step=5&platform=hardware)
--   [Bitcoin Multisig Hardware Wallet Comparison](https://bitcoin-hardware-wallet.github.io/):
-    notably, the Trezor One is missing.
 -   <https://diybitcoinhardware.com>: references for building a DYI hardware
     wallet
     -   https://github.com/cryptoadvance/specter-diy
@@ -485,6 +485,11 @@ CEO "made some comments on Reddit which were fraught with technical inaccuracy".
 See the
 [Interaction with Ledger](https://saleemrashid.com/2018/03/20/breaking-ledger-security-model/#interaction-with-ledger)
 section for more details.
+
+An issue common to most hardware wallets, including Trezor and Ledger, is that
+they are not truly air gapped: they use SD cards or USB to communicate with an
+internet connected host. Cobo Vault is one device which does this right, and
+uses QR codes to communicate with the host.
 
 #### Other references
 
