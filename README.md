@@ -490,6 +490,10 @@ See references below for implementation options.
 -   [Wasabi](https://github.com/zkSNACKs/WalletWasabi/): privacy focused bitcoin
     wallet supporting CoinJoin. As of 2019-10-30, seems to have very active
     development.
+-   [Junction](https://github.com/justinmoon/junction): GUI for using hardware
+    wallets with Bitcoin Core. Uses HWI to interface with hardware wallets. As
+    of 2020-12-25, seems to be testnest only, and unmaintained since
+    October 2019.
 -   [Gnosis Safe](https://gnosis-safe.io/): Ethereum wallet with support for
     multisig with Trezor and Ledger
     -   <https://github.com/gnosis/MultiSigWallet>: Older Gnosis multisig wallet
@@ -558,9 +562,6 @@ section for more details.
 -   [HWI](https://github.com/bitcoin-core/HWI): python library and CLI for
     interacting with hardware wallets in a unified way, compatible with multiple
     models.
--   [Junction](https://github.com/justinmoon/junction): GUI for using hardware
-    wallets with Bitcoin Core. Uses HWI to interface with hardware wallets. As
-    of 2019-10-30, seems to be testnest only, and undergoing heavy development.
 
 ### Split HD seeds and secret sharing (SLIP39)
 
