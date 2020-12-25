@@ -6,12 +6,12 @@
 
 -   [Table of Contents](#table-of-contents)
 -   [Goals](#goals)
--   [Non-Goals](#non-goals)
+    -   [Non-Goals](#non-goals)
 -   [Disclaimer](#disclaimer)
 -   [Principles](#principles)
 -   [Threat model](#threat-model)
 -   [Terminology](#terminology)
--   [Secrets](#secrets)
+    -   [Secrets](#secrets)
 -   [Overview](#overview)
     -   [Creating a wallet](#creating-a-wallet)
     -   [Spending funds](#spending-funds)
@@ -36,9 +36,10 @@
     -   [Desktop wallets](#desktop-wallets)
     -   [Mobile wallets](#mobile-wallets)
     -   [Hardware wallets](#hardware-wallets)
+        -   [Trezor vs Ledger](#trezor-vs-ledger)
         -   [Other references](#other-references)
-    -   [Split HD seeds and secret sharing](#split-hd-seeds-and-secret-sharing)
-        -   [Non standard implementations](#non-standard-implementations)
+    -   [Split HD seeds and secret sharing (SLIP39)](#split-hd-seeds-and-secret-sharing-slip39)
+    -   [Split HD seeds and secret sharing (non-standard implementations)](#split-hd-seeds-and-secret-sharing-non-standard-implementations)
     -   [Multisig](#multisig)
     -   [Operation systems for cold storage](#operation-systems-for-cold-storage)
     -   [General](#general)
@@ -52,9 +53,9 @@
 -   Be comprehensive but succinct: cover many aspects but link to other sources
     wherever possible.
 -   Use methods that support multiple currencies where possible, but focus on
-    Bitcoin and Ethereum.
+    Bitcoin and Ethereum (including ERC-20 tokens).
 
-## Non-Goals
+### Non-Goals
 
 -   Cover the purchase of cryptocoins. Only secure storage and transacting are
     in scope.
@@ -112,7 +113,7 @@ trust strangers on the internet with anything important.
     entropy. This mnemonic is later hashed with an optional password to derive
     the BIP32 seed.
 
-## Secrets
+### Secrets
 
 In this doc, we refer to _secrets_ as information that can help an attacker to
 spend funds. This includes:
@@ -129,8 +130,8 @@ spend funds. This includes:
     private key by exploiting a weakness in ECDSA, whereas knowing only the
     address adds another security layer: inverting a cryptographic hash.
 
-From now on, "seeds" may refer to raw BIP32 seeds, BIP39 mnemonics, or
-individual private keys.
+From now on, "seeds" may refer to anything that can be used to derive private
+keys, including BIP32 seeds, BIP39 mnemonics, and individual private keys.
 
 ## Overview
 
@@ -330,6 +331,8 @@ See references below for implementation options.
     wallets from different vendors.
     -   [How should I store my bitcoin?](https://medium.com/@michaelflaxman/how-should-i-store-my-bitcoin-43874ac208e4):
         good article by Michael Flaxman, published on 2017-09-28.
+-   [Pro-Tips for Ethereum Wallet Management](https://silentcicero.gitbooks.io/pro-tips-for-ethereum-wallet-management/content/):
+    Ethereum guide from February 2018.
 -   [SmartCustody](https://www.smartcustody.com/): Book by Blockchain Commons.
 -   [Advanced: Creating a Secure Wallet by Tomshwom](https://support.mycrypto.com/staying-safe/advanced-secure-wallets-by-tomshwom):
     good guide for generating keys on an air gapped computer booting Tails. The
@@ -416,7 +419,7 @@ See references below for implementation options.
     Android app that supports broadcasting transactions via QR codes for BTC,
     BCH, LTC, DASH, and ZCASH. Not updated since 2018-08-22.
 
-### Desktop wallets
+### Wallets: desktop
 
 -   [List from bitcoin.org](https://bitcoin.org/en/choose-your-wallet?step=5&platform=linux)
 -   [Bitcoin Core](https://bitcoin.org/en/bitcoin-core/)
@@ -445,7 +448,7 @@ See references below for implementation options.
 -   [gowallet](https://github.com/aiportal/gowallet): cross platform TUI wallet
     written in golang. Doesn't look maintained, and uses custom cryptography.
 
-### Mobile wallets
+### Wallets: Android
 
 -   [List from bitcoin.org](https://bitcoin.org/en/choose-your-wallet?step=5&platform=android)
     for Android
@@ -454,7 +457,12 @@ See references below for implementation options.
 -   [Copay](https://github.com/bitpay/copay): TODO
 -   [Samourai Android Wallet](https://github.com/Samourai-Wallet/samourai-wallet-android)
 
-### Hardware wallets
+### Wallets: hardware
+
+An issue common to most hardware wallets, including Trezor and Ledger, is that
+they are not truly air gapped: they use SD cards or USB to communicate with an
+internet connected host. Cobo Vault is one device which does this right, and
+uses QR codes to communicate with the host.
 
 -   [List from bitcoin.org](https://bitcoin.org/en/choose-your-wallet?step=5&platform=hardware)
 -   <https://diybitcoinhardware.com>: references for building a DYI hardware
@@ -465,6 +473,8 @@ See references below for implementation options.
     device and hardware wallet from Blockchain Commons.
 -   [SatoChipApplet](https://github.com/Toporin/SatochipApplet): DIY wallet
     based on a Java Card applet. Can be run on a Yubikey Neo.
+
+#### Trezor vs Ledger
 
 The most popular wallet vendors are [Trezor](https://trezor.io/) and
 [Ledger](https://www.ledger.com/), and both support a large number of
@@ -486,10 +496,14 @@ See the
 [Interaction with Ledger](https://saleemrashid.com/2018/03/20/breaking-ledger-security-model/#interaction-with-ledger)
 section for more details.
 
-An issue common to most hardware wallets, including Trezor and Ledger, is that
-they are not truly air gapped: they use SD cards or USB to communicate with an
-internet connected host. Cobo Vault is one device which does this right, and
-uses QR codes to communicate with the host.
+### Wallets: utilities
+
+-   <https://walletsrecovery.org>: List of wallets with their supported
+    derivation paths and other features, aimed to help wallet users understand
+    the interoperability between wallets.
+-   [HD Wallet Scanner](https://github.com/alexk111/HD-Wallet-Scanner): Node.js
+    tool to find used addresses in HD wallets, bypassing the gap limit of 20
+    specified in BIP32.
 
 #### Other references
 
@@ -500,7 +514,7 @@ uses QR codes to communicate with the host.
     wallets with Bitcoin Core. Uses HWI to interface with hardware wallets. As
     of 2019-10-30, seems to be testnest only, and undergoing heavy development.
 
-### Split HD seeds and secret sharing
+### Split HD seeds and secret sharing (SLIP39)
 
 -   [python-shamir-mnemonic](https://github.com/trezor/python-shamir-mnemonic):
     reference implementation of
@@ -514,13 +528,13 @@ uses QR codes to communicate with the host.
     implementation in C from Blockchain Commons.
 -   [slip39-rust](https://github.com/Internet-of-People/slip39-rust): SLIP-39
     implementation in Rust.
+
+### Split HD seeds and secret sharing (non-standard implementations)
+
+-   [bc-shamir](https://github.com/BlockchainCommons/bc-shamir)
 -   https://github.com/dsprenkels/sss
 -   https://github.com/SSSaaS/sssa-golang
-
-#### Non standard implementations
-
 -   [shamir39](https://github.com/iancoleman/shamir39)
--   [bc-shamir](https://github.com/BlockchainCommons/bc-shamir)
 -   [Guide on using Shamir's Secret Sharing](https://medium.com/@markstar/backup-your-trezor-ledger-using-shamirs-secret-sharing-972e98101839)
     to back up the BIP39 seed. Uses a non-standardized SSS implementation, so
     SLIP-39 should be preferred.
@@ -585,9 +599,3 @@ booting it from a USB stick or DVD.
 -   When typing passwords, you can increase the security by doing some of the
     typing with a virtual keyboard, which is less susceptible to hardware key
     loggers and some audio side channel attacks.
--   As of 2019-09-10, it seems that using multisig is still not easy with BTC.
-    bitcoin-core added support for
-    [BIP-174](https://github.com/bitcoin/bips/blob/master/bip-0174.mediawiki)
-    which defines a format for partially signed transactions, which can be
-    generated and passed to wallets to collect the required signatures, but it's
-    not well supported by wallets yet.
