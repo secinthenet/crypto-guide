@@ -20,6 +20,7 @@
     -   [Seeds](#seeds)
     -   [Online Read-Only Wallet](#online-read-only-wallet)
     -   [Offline Signing Wallet](#offline-signing-wallet)
+    -   [PSBT](#psbt)
 -   [Overview](#overview)
     -   [Creating a wallet](#creating-a-wallet)
         -   [Verify that the wallet is spendable](#verify-that-the-wallet-is-spendable)
@@ -173,6 +174,13 @@ Can be either a hardware wallet or a general purpose computer.
 
 When using multisig, multiple separate offline signing wallets are required for
 securely sending funds, each providing a single signature.
+
+### PSBT
+
+A transaction format standard for partially signed Bitcoin transactions defined
+in [BIP174](https://github.com/bitcoin/bips/blob/master/bip-0174.mediawiki).
+Facilitates interoperability between different wallets that process partially
+signed transactions.
 
 ## Overview
 
