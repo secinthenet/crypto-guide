@@ -12,9 +12,12 @@
 -   [Threat model](#threat-model)
 -   [Terminology](#terminology)
     -   [Secrets](#secrets)
+    -   [Online Read-Only Wallet](#online-read-only-wallet)
+    -   [Offline Signing Wallet](#offline-signing-wallet)
 -   [Overview](#overview)
     -   [Creating a wallet](#creating-a-wallet)
-    -   [Spending funds](#spending-funds)
+        -   [Verify that the wallet is spendable](#verify-that-the-wallet-is-spendable)
+    -   [Sending funds](#sending-funds)
     -   [Receiving funds](#receiving-funds)
     -   [Testing backups](#testing-backups)
 -   [Generating secrets](#generating-secrets)
@@ -33,10 +36,11 @@
     -   [Air-gapped communication](#air-gapped-communication)
         -   [Audible](#audible)
         -   [Visual](#visual)
-    -   [Desktop wallets](#desktop-wallets)
-    -   [Mobile wallets](#mobile-wallets)
-    -   [Hardware wallets](#hardware-wallets)
+    -   [Wallets: desktop](#wallets-desktop)
+    -   [Wallets: Android](#wallets-android)
+    -   [Wallets: hardware](#wallets-hardware)
         -   [Trezor vs Ledger](#trezor-vs-ledger)
+    -   [Wallets: utilities](#wallets-utilities)
         -   [Other references](#other-references)
     -   [Split HD seeds and secret sharing (SLIP39)](#split-hd-seeds-and-secret-sharing-slip39)
     -   [Split HD seeds and secret sharing (non-standard implementations)](#split-hd-seeds-and-secret-sharing-non-standard-implementations)
@@ -133,32 +137,70 @@ spend funds. This includes:
 From now on, "seeds" may refer to anything that can be used to derive private
 keys, including BIP32 seeds, BIP39 mnemonics, and individual private keys.
 
+### Online Read-Only Wallet
+
+A wallet that only knows public keys and/or addresses, but not any seed. This
+wallet is only used for tracking funds in existing addresses and generating
+addresses for receiving new coins. It must be online because tracking funds
+requires the accessing the blockchain (but generating addresses can be done
+offline).
+
+### Offline Signing Wallet
+
+A device that is completely offline (not connected to the internet, nor any
+device that can be connected to the internet) that is used to sign transactions.
+Can be either a hardware wallet or a general purpose computer.
+
+When using multisig, multiple separate offline signing wallets are required for
+securely sending funds, each providing a single signature.
+
 ## Overview
 
 ### Creating a wallet
 
--   Generate seeds and auxiliary secrets using an air gapped device.
--   Transfer master public address (xpub/ypub/zpub) to a hot wallet.
+-   Generate seeds and auxiliary secrets using one or more air gapped devices.
+-   Transfer master public addresses (xpub/ypub/zpub) to the online read-only
+    wallet.
+-   Verify that the new wallet can receive and spend funds
 -   Back up and distribute the secrets to cold/offline storage in multiple
     locations.
 
-### Spending funds
+#### Verify that the wallet is spendable
 
--   Generate an unsigned transaction in a hot wallet.
--   [Transfer](#secure-air-gapped-communication) the unsigned transaction to
-    cold wallet.
--   Sign the transaction in the cold wallet.
--   [Transfer](#secure-air-gapped-communication) signed transaction to the hot
-    wallet.
--   Broadcast transaction from the hot wallet.
+-   Generate a new address `address1` in the online read-only wallet.
+-   Send a **small** amount of funds from your old wallet (can be an exchange)
+    to `address1`.
+-   Verify that the online read-only wallet can detect that `address1` received
+    funds.
+-   Generate a new address `address2` in the online read-only wallet.
+-   [Send](#sending-funds) the funds from `address1` to `address2`.
+-   Verify that the online read-only wallet can detect that `address1` moved
+    funds to `address2`.
+
+### Sending funds
+
+-   Generate an unsigned transaction in the online read-only wallet.
+-   For each offline signing wallet (multiple wallets are used only in
+    multisig):
+    -   [Transfer](#secure-air-gapped-communication) the unsigned transaction to
+        the offline signing wallet.
+    -   Sign the transaction in the offline signing wallets (can be multiple
+        wallets if using multisig)
+    -   [Transfer](#secure-air-gapped-communication) the (partially) signed
+        transaction to the online read-only wallet.
+-   (Multisig only): Combine the partially signed transactions in the online
+    read-only wallet to a final signed transaction.
+-   Broadcast the transaction from the online read-only wallet.
 
 ### Receiving funds
 
--   Generate new address in a hot wallet and provide it to the sender.
+-   Generate a new address in the online read-only wallet and provide it to the
+    sender.
 
 ### Testing backups
 
-TODO
+-   Use the stored seeds to reconstruct each of the offline signing wallets and
+    [verify that you can spend funds] from these wallets.
 
 ## Generating secrets
 
@@ -270,7 +312,7 @@ newer [BIP16](https://github.com/bitcoin/bips/blob/master/bip-0016.mediawiki).
     and `N` to fit their specific security requirements.
 -   Multisig enables you to maintain the property that at no point in time there
     is sufficient information to spend funds in a single wallet/place, even when
-    spending funds. When you want to spend funds, you generate a transaction,
+    sending funds. When you want to spend funds, you generate a transaction,
     pass it to each of the wallets for signing, and then broadcast it to the
     network. Importantly, no single wallet will have sufficient information to
     spend funds during the whole process. The upshot is that multisig seeds
@@ -288,22 +330,27 @@ newer [BIP16](https://github.com/bitcoin/bips/blob/master/bip-0016.mediawiki).
 
 ## Secure air-gapped communication
 
-Signing transactions requires moving data between the cold and hot wallets.
-Using USB for such a task is risky, as the USB stack is complex and it has been
-exploited in the past to infect computers with malware
-([Stuxnet](https://www.wikiwand.com/en/Stuxnet),
+Signing transactions requires moving data between the offline signing wallets
+and an online read-only wallet. Using USB for such a task is risky, as the USB
+stack is complex and it has been exploited in the past to infect computers with
+malware ([Stuxnet](https://www.wikiwand.com/en/Stuxnet),
 [BadUSB](https://hackaday.com/tag/badusb/), etc.). There are two alternative
 mechanisms for communication that avoid the complexity of USB and other
 electronic connections:
 
 -   Visual codes (such as QR codes)
-    -   Pros: QR codes have a large software ecosystem
-    -   Cons: May not support transfer large transactions (unless using multiple
-        codes which adds complexity), requires a camera/scanner
+    -   Pro: QR codes are standardized and have a large software ecosystem.
+    -   Con: Large transactions may not fit in a single QR code. Multiple QR
+        codes can be used to transfer an arbitrary amount of data, but that
+        increases manual work and there's no standards for that.
 -   Audible codes
-    -   Pros: Supports large transactions, only requires a microphone and
-        speakers which are more common than a camera
-    -   Cons: Limited software selection
+    -   Pro: Supports large transactions more seamlessly than QR codes.
+    -   Con: No standards and limited software selection.
+    -   Con: It's harder to defend against wiretapping/eavesdropping than a
+        camera (microphones are smaller and harder to block).
+
+Another consideration is hardware requirements. QR codes require a
+camera/scanner, while audible codes require a microphone and speakers.
 
 See references below for implementation options.
 
@@ -424,7 +471,8 @@ See references below for implementation options.
 -   [List from bitcoin.org](https://bitcoin.org/en/choose-your-wallet?step=5&platform=linux)
 -   [Bitcoin Core](https://bitcoin.org/en/bitcoin-core/)
 -   [Specter Desktop](https://github.com/cryptoadvance/specter-desktop): A
-    desktop GUI for Bitcoin Core optimised to work with hardware wallets.
+    desktop GUI for Bitcoin Core optimised for multisig workflows with offline
+    signing wallets.
 -   [Electrum](https://electrum.org/#home): one of the most popular bitcoin
     wallets. I'm worried about its security and privacy
     ([see this HN thread](https://news.ycombinator.com/item?id=18770577#18771112)),
@@ -576,12 +624,13 @@ booting it from a USB stick or DVD.
     software for processing cryptocoins such as wallets, password managers, QR
     code generator, etc. Doesn't look maintained since mid 2018.
 -   [Qubes OS](https://www.qubes-os.org/): OS architecture that heavily uses
-    compartmentalization to improve security. Usually runs a Debian distro. Has
-    relatively strict
+    compartmentalization to improve security. Usually runs a Debian or Redhat
+    distro. Has stricter
+    [hardware requirements](https://www.qubes-os.org/doc/system-requirements/)
+    than a regular OS.
     -   [qubes-whonix-bitcoin](https://github.com/qubenix/qubes-whonix-bitcoin):
         guide for using Qubes and Whonix to run Electrum in an offline VM,
         connected to a separate VM serving an Electrum personal server.
-        [hardware limitations](https://www.qubes-os.org/doc/system-requirements/).
 -   [Whonix](https://www.whonix.org/): TODO.
 -   [Kodachi](https://github.com/WMAL/kodachi): Live Linux distro similar to
     Tails: amnesic by default (no data persistence) and uses Tor to route all
