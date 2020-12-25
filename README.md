@@ -136,16 +136,16 @@ later hashed with an optional password to derive the BIP32 seed.
 ### Individual private keys
 
 Private keys which are generated independently (in contrast to keys that are
-generated using a scheme such as BIP32). They are less flexible than BIP32 seeds
-since they are only associated to a single "account", but may have security
-advantages if BIP32 turns out to have weaknesses.
+generated using a scheme such as BIP32). Less flexible than
+[BIP32 seeds](#bip32-seed) since they are only associated to a single "account",
+but may have security advantages if BIP32 turns out to have weaknesses.
 
 ### Secrets
 
 Any information that can help an attacker to spend funds. This includes:
 
--   BIP32 seeds
--   Individual private keys
+-   [BIP32 seeds](#bip32-seed)
+-   [Individual private keys](#individual-private-keys)
 -   Any passphrases for the above, for example a passphrase for BIP39 or a
     passphrase for BIP38 encrypted private keys.
 -   Public keys: knowing them makes it easier to retrieve the corresponding
@@ -434,7 +434,7 @@ See references below for implementation options.
     existing mnemonic or external entropy. Can be used offline.
 -   [bc-seedtool-cli](https://github.com/BlockchainCommons/bc-seedtool-cli): CLI
     tool for generating entropy and converting external entropy to different
-    formats (hex, bip39, binary, etc.). See also the
+    formats (hex, BIP39, binary, etc.). See also the
     [comprehensive manual](https://github.com/BlockchainCommons/bc-seedtool-cli/blob/master/Docs/MANUAL.md).
 -   [github.com/trezor/python-mnemonic](https://github.com/trezor/python-mnemonic):
     reference implementation for BIP39 by Trezor.
