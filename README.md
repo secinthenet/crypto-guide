@@ -11,7 +11,13 @@
 -   [Principles](#principles)
 -   [Threat model](#threat-model)
 -   [Terminology](#terminology)
+    -   [BIP32 seed](#bip32-seed)
+    -   [BIP32 root key](#bip32-root-key)
+    -   [BIP39 entropy](#bip39-entropy)
+    -   [BIP39 mnemonic](#bip39-mnemonic)
+    -   [Individual private keys](#individual-private-keys)
     -   [Secrets](#secrets)
+    -   [Seeds](#seeds)
     -   [Online Read-Only Wallet](#online-read-only-wallet)
     -   [Offline Signing Wallet](#offline-signing-wallet)
 -   [Overview](#overview)
@@ -103,38 +109,53 @@ trust strangers on the internet with anything important.
 
 ## Terminology
 
--   BIP32 seed: the pseudo-random byte sequence of length 128-512 bits used in
-    the first step of BIP32's
-    [master key derivation](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki#master-key-generation).
--   BIP32 root key: the extended private key at the top of the BIP32 hierarchy.
-    Usually denoted as `m` in BIP32 derivations.
--   BIP39 entropy: an initial entropy of 128-512 bits used in
-    [BIP39's mnemonic generation](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki#generating-the-mnemonic).
-    Derives the mnemonic phrase by adding a checksum to the initial entropy and
-    then decoding the result using a word list.
--   BIP39 mnemonic: the mnemonic phrase computed in BIP39 from the BIP39
-    entropy. This mnemonic is later hashed with an optional password to derive
-    the BIP32 seed.
+### BIP32 seed
+
+The pseudo-random byte sequence of length 128-512 bits used in the first step of
+BIP32's
+[master key derivation](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki#master-key-generation).
+Typically, backed up using BIP39 mnemonics.
+
+### BIP32 root key
+
+The extended private key at the top of the BIP32 hierarchy. Usually denoted as
+`m` in BIP32 derivations.
+
+### BIP39 entropy
+
+An initial entropy of 128-512 bits used in
+[BIP39's mnemonic generation](https://github.com/bitcoin/bips/blob/master/bip-0039.mediawiki#generating-the-mnemonic).
+Derives the mnemonic phrase by adding a checksum to the initial entropy and then
+decoding the result using a word list.
+
+### BIP39 mnemonic
+
+The mnemonic phrase computed in BIP39 from the BIP39 entropy. This mnemonic is
+later hashed with an optional password to derive the BIP32 seed.
+
+### Individual private keys
+
+Private keys which are generated independently (in contrast to keys that are
+generated using a scheme such as BIP32). They are less flexible than BIP32 seeds
+since they are only associated to a single "account", but may have security
+advantages if BIP32 turns out to have weaknesses.
 
 ### Secrets
 
-In this doc, we refer to _secrets_ as information that can help an attacker to
-spend funds. This includes:
+Any information that can help an attacker to spend funds. This includes:
 
--   BIP32 seeds, typically backed up using BIP39 mnemonics. Can be used to
-    generate an infinite number of private keys for multiple currencies.
--   Individual private keys which are generated independently (not from a BIP32
-    seed). They are less flexible than BIP32 seeds since they are only
-    associated to a single "account", but may have security advantages if BIP32
-    turns out to have weaknesses.
+-   BIP32 seeds
+-   Individual private keys
 -   Any passphrases for the above, for example a passphrase for BIP39 or a
     passphrase for BIP38 encrypted private keys.
 -   Public keys: knowing them makes it easier to retrieve the corresponding
     private key by exploiting a weakness in ECDSA, whereas knowing only the
     address adds another security layer: inverting a cryptographic hash.
 
-From now on, "seeds" may refer to anything that can be used to derive private
-keys, including BIP32 seeds, BIP39 mnemonics, and individual private keys.
+### Seeds
+
+Anything that can be used to derive private keys, including BIP32 seeds, BIP39
+mnemonics, and individual private keys.
 
 ### Online Read-Only Wallet
 
