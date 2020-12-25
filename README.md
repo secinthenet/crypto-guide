@@ -602,6 +602,8 @@ section for more details.
 -   [Ethereum multisig overview](https://medium.com/mycrypto/introduction-to-multisig-contracts-33d5b25134b2)
     from 2020-01-16.
 -   [firma](https://github.com/RCasatta/firma): PSBT signer.
+-   [linux-psbt-signer](https://github.com/justinmoon/linux-psbt-signer): PSBT
+    signer.
 
 ### Operation systems for cold storage
 
