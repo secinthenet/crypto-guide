@@ -41,7 +41,6 @@
     -   [Wallets: hardware](#wallets-hardware)
         -   [Trezor vs Ledger](#trezor-vs-ledger)
     -   [Wallets: utilities](#wallets-utilities)
-        -   [Other references](#other-references)
     -   [Split HD seeds and secret sharing (SLIP39)](#split-hd-seeds-and-secret-sharing-slip39)
     -   [Split HD seeds and secret sharing (non-standard implementations)](#split-hd-seeds-and-secret-sharing-non-standard-implementations)
     -   [Multisig](#multisig)
@@ -159,11 +158,10 @@ securely sending funds, each providing a single signature.
 ### Creating a wallet
 
 -   Generate seeds and auxiliary secrets using one or more air gapped devices.
--   Transfer master public addresses (xpub/ypub/zpub) to the online read-only
-    wallet.
+-   Transfer master public keys (xpub/ypub/zpub) to the online read-only wallet.
 -   Verify that the new wallet can receive and spend funds
--   Back up and distribute the secrets to cold/offline storage in multiple
-    locations.
+-   Back up and distribute both the secrets and master public keys to paper in
+    multiple locations.
 
 #### Verify that the wallet is spendable
 
@@ -556,9 +554,6 @@ section for more details.
 -   [HD Wallet Scanner](https://github.com/alexk111/HD-Wallet-Scanner): Node.js
     tool to find used addresses in HD wallets, bypassing the gap limit of 20
     specified in BIP32.
-
-#### Other references
-
 -   [HWI](https://github.com/bitcoin-core/HWI): python library and CLI for
     interacting with hardware wallets in a unified way, compatible with multiple
     models.
@@ -603,6 +598,7 @@ section for more details.
 -   [Ethereum multisig overview](https://medium.com/mycrypto/introduction-to-multisig-contracts-33d5b25134b2)
     from 2020-01-16.
 -   [firma](https://github.com/RCasatta/firma): PSBT signer.
+-   https://github.com/benthecarman/PSBT-Toolkit
 -   [linux-psbt-signer](https://github.com/justinmoon/linux-psbt-signer): PSBT
     signer.
 
