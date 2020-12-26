@@ -408,6 +408,7 @@ See references below for implementation options.
 -   [Pro-Tips for Ethereum Wallet Management](https://silentcicero.gitbooks.io/pro-tips-for-ethereum-wallet-management/content/):
     Ethereum guide from February 2018.
 -   [SmartCustody](https://www.smartcustody.com/): Book by Blockchain Commons.
+-   https://github.com/BlockchainCommons/Gordian
 -   [Advanced: Creating a Secure Wallet by Tomshwom](https://support.mycrypto.com/staying-safe/advanced-secure-wallets-by-tomshwom):
     good guide for generating keys on an air gapped computer booting Tails. The
     guide agrees that hardware wallets are a very good option, but tries to
@@ -493,6 +494,19 @@ See references below for implementation options.
     Android app that supports broadcasting transactions via QR codes for BTC,
     BCH, LTC, DASH, and ZCASH. Not updated since 2018-08-22.
 
+### Wallets: multisig coordinators
+
+-   [Specter Desktop](https://github.com/cryptoadvance/specter-desktop): A
+    desktop GUI for Bitcoin Core optimised for multisig workflows with offline
+    signing wallets.
+-   https://github.com/unchained-capital/caravan
+-   https://github.com/sparrowwallet/sparrow
+-   Electrum
+-   [Junction](https://github.com/justinmoon/junction): GUI for using hardware
+    wallets with Bitcoin Core. Uses HWI to interface with hardware wallets. As
+    of 2020-12-25, seems to be testnest only, and unmaintained since
+    October 2019.
+
 ### Wallets: desktop
 
 -   [List from bitcoin.org](https://bitcoin.org/en/choose-your-wallet?step=5&platform=linux)
@@ -517,10 +531,6 @@ See references below for implementation options.
 -   [Wasabi](https://github.com/zkSNACKs/WalletWasabi/): privacy focused bitcoin
     wallet supporting CoinJoin. As of 2019-10-30, seems to have very active
     development.
--   [Junction](https://github.com/justinmoon/junction): GUI for using hardware
-    wallets with Bitcoin Core. Uses HWI to interface with hardware wallets. As
-    of 2020-12-25, seems to be testnest only, and unmaintained since
-    October 2019.
 -   [Gnosis Safe](https://gnosis-safe.io/): Ethereum wallet with support for
     multisig with Trezor and Ledger
     -   <https://github.com/gnosis/MultiSigWallet>: Older Gnosis multisig wallet
