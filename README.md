@@ -43,6 +43,7 @@
     -   [Air-gapped communication](#air-gapped-communication)
         -   [Audible](#audible)
         -   [Visual](#visual)
+    -   [Wallets: multisig coordinators](#wallets-multisig-coordinators)
     -   [Wallets: desktop](#wallets-desktop)
     -   [Wallets: Android](#wallets-android)
     -   [Wallets: hardware](#wallets-hardware)
@@ -187,8 +188,11 @@ signed transactions.
 ### Creating a wallet
 
 -   Generate seeds and auxiliary secrets using one or more air gapped devices.
+-   Verify the seeds derive the same master public keys (xpub/ypub/zpub) with at
+    least two independent implementations.
 -   Transfer master public keys (xpub/ypub/zpub) to the online read-only wallet.
--   Verify that the new wallet can receive and spend funds
+-   Verify that the new wallet can receive and spend funds (see subsection
+    below).
 -   Back up and distribute both the secrets and master public keys to paper in
     multiple locations.
 
@@ -227,7 +231,8 @@ signed transactions.
 ### Testing backups
 
 -   Use the stored seeds to reconstruct each of the offline signing wallets and
-    [verify that you can spend funds] from these wallets.
+    [verify that you can spend funds](#verify-that-the-wallet-is-spendable) from
+    these wallets.
 
 ## Generating secrets
 
@@ -245,19 +250,21 @@ level of security:
         software other than what's required, be verified against signatures
         provided from the developers, and leave no traces (no persistence by
         default, i.e. be "amnesic").
-    -   The OS should be loaded from a DVD instead of a USB flash drive since
-        the former is more secure against modifications after the initial write.
+    -   Ideally, the OS will be booted from a read only storage medium in order
+        to prevent malicious modifications. To this end, DVDs (which are read
+        only after burning them) or USB flash drives with write protection can
+        be used.
     -   Ideally, the computer will never be connected to the internet after it
         was used to generate the secrets. This eliminates the risk that the
-        generated secret was stored in persisent memory (probably due to already
-        being compromised), and then transmitted to the attacker when connected
-        to the internet.
+        generated secret was stored in persistent memory (probably due to
+        already being compromised), and then transmitted to the attacker when
+        connected to the internet.
 -   Firmware/hardware generation on a special purpose security device such as a
     hardware wallet or an HSM.
 -   Casino grade dice. Pro: simple, malware resistant, easy to verify. Con:
     requires manual input to a computer. Also, note that some secrets require
     additional computation that can't be easily done on paper (for example, the
-    checksum for a BIP39 mnemonic), which reduce the malware resistance
+    checksum for a BIP39 mnemonic), which reduces the malware resistance
     advantage.
 
 It is possible to combine multiple independent sources of randomness to derive
@@ -278,7 +285,7 @@ XORing them).
     [durable paper](https://www.amazon.com/dp/B076JKVNWY/ref=cm_sw_r_cp_ep_dp_0f5GAbR8XZDSA)
     Glacier recommends, or a [Cryptosteel](https://cryptosteel.com/).
 -   Store the seeds in a safe place, for example a vault.
--   Consider using tamper-resistant seals to identify compromises.
+-   Consider using tamper-resistant seals to be able to detect compromises.
 
 ## Encrypting seeds at rest
 
@@ -297,10 +304,13 @@ about backups!). Options include:
 
 -   On paper or other non-electronic form, in a **disjoint set of physical
     locations**.
--   In multiple secure hardware devices such as Yubikeys or HSMs.
--   In a password manager which is backed up to multiple devices. The con of
-    this method is that it may be impossible for your heirs to access the
-    password.
+-   In secure hardware devices such as Yubikeys or HSMs.
+-   In a password manager. The con of this method is that it may be impossible
+    for your heirs to access the password.
+
+For any of these methods, backups can be made by adding redundancy, for example
+storing multiple paper backups, using multiple hardware devices, or storing the
+password manager database in multiple devices.
 
 ### Split seeds
 
@@ -352,8 +362,9 @@ newer [BIP16](https://github.com/bitcoin/bips/blob/master/bip-0016.mediawiki).
 -   Multisig seeds require `M` signatures for every transaction. Using split
     seeds requires `M` shares to reconstruct the seed, but from that point the
     reconstructed seed can be used to sign any number of transactions.
--   Multisig seeds do not yet support multiple coins in a standardized way
-    (BIP45 specifies derivation paths that are specific to a single coin).
+-   Multisig seeds do not yet support multiple coins in a standardized way. Note
+    that BIP45 specifies derivation paths that are specific to a single coin,
+    and as of 2020-12-27 it doesn't seem to be used by any popular wallet.
 
 ## Secure air-gapped communication
 
