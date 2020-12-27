@@ -187,7 +187,8 @@ signed transactions.
 
 ### Creating a wallet
 
--   Generate seeds and auxiliary secrets using one or more air gapped devices.
+-   Prepare secure quarantined (AKA eternally air gapped) devices
+-   Generate seeds and auxiliary secrets using one or more quarantined devices.
 -   Verify the seeds derive the same master public keys (xpub/ypub/zpub) with at
     least two independent implementations.
 -   Transfer master public keys (xpub/ypub/zpub) to the online read-only wallet.
@@ -233,6 +234,72 @@ signed transactions.
 -   Use the stored seeds to reconstruct each of the offline signing wallets and
     [verify that you can spend funds](#verify-that-the-wallet-is-spendable) from
     these wallets.
+
+## Preparing a quarantined laptop
+
+TODO: Write guidelines for buying laptop (see Glacier for reference). Preferably
+use a laptop with a camera for communicating with QR codes, or connect an
+external webcam, alternatively use audio codes via amodem.
+
+-   Update BIOS to latest version from manufacturer
+-   Recommended: physically remove the Wifi and Bluetooth adapters
+-   Recommended: remove internal hard drives
+-   Install Linux Tails to a USB/DVD using the
+    [installation instructions](https://tails.boum.org/install/index.en.html)
+    -   Download the latest image and signature
+    -   import the Tails developers PGP key
+    -   Verify the Tails image signature
+    -   Burn Tails image to USB/DVD
+    -   If the laptop only supports BIOS/MBR (usually old laptops manufactured
+        before 2012 or so), see the next subsection
+-   Generate a strong password and store it.
+-   Use GParted to create a separate encrypted partition in the boot device and
+    use the password from the previous step. Note that this can be done from
+    Tails after booting it, but it only works in EFI/GPT mode, and it's easier
+    to do it before booting tails.
+-   Boot tails
+-   Disable networking in advanced options
+
+### Making Tails work in BIOS/MBR mode
+
+The Linux Tails image only supports booting in EFI/GPT mode, so we need to do
+some modifications to the boot device (USB/DVD) to support BIOS/MBR. The
+following shell commands should be in a Linux terminal, and assume the Tails
+boot device is `/dev/sdX`:
+
+    - Convert the partition table to MBR:
+
+    ```sh
+    sudo sgdisk --gpttombr /dev/sdX
+    ```
+
+    - Make the Tails OS partition bootable:
+
+    ```sh
+    parted --script /dev/sdX1 set 1 boot on
+    ```
+
+    - [Download](https://wiki.syslinux.org/wiki/index.php?title=Download) the archive of the latest stable version of Syslinux and extract it
+
+    - Copy the Syslinux MBR code to the boot device (where `$SYSLINUX_DIR` is the directory where you extracted Syslinux):
+
+    ```sh
+    sudo dd bs=440 count=1 conv=notrunc if=/usr/lib/syslinux/bios/mbr.bin of=/dev/sdX
+    ```
+
+TODO: Look into hybrid
+[Hybrid UEFI GPT + BIOS GPT/MBR](https://wiki.archlinux.org/index.php/Multiboot_USB_drive#Hybrid_UEFI_GPT_+_BIOS_GPT/MBR_boot).
+
+TODO: Should we also use the `syslinux`/`extlinux` tool to install the
+bootloader? Tails already uses Syslinux so the MBR code seems to be able to find
+it, but it may be safer to install it in case Tails switches to another boot
+loader.
+
+References:
+
+-   [Syslinux installation wiki](https://wiki.syslinux.org/wiki/index.php?title=Install)
+-   [Syslinux MBR installation](https://wiki.syslinux.org/wiki/index.php?title=Mbr)
+-   [Syslinux in Arch Linux wiki](https://wiki.archlinux.org/index.php/syslinux)
 
 ## Generating secrets
 
@@ -662,10 +729,11 @@ booting it from a USB stick or DVD.
     internet connections are forced to go through Tor. Bundled with Electrum.
     Seems to be the best maintained security/privacy focused OS based on git
     activity.
-    -   <https://github.com/PulpCattel/Tails-BitcoinCore-Wasabi>: A guide for
-        using Tails, Bitcoin core, and Wasabi to implement an offline wallet
     -   <https://github.com/SovereignNode/tails-cold-storage>: A guide on
         creating Bitcoin cold storage using Tails.
+    -   <https://github.com/PulpCattel/Tails-BitcoinCore-Wasabi>: A guide for
+        using Tails, Bitcoin core, and Wasabi to implement an amnesic wallet
+        (though it's still online)
 -   [AirGap Vault Distribution](https://github.com/airgap-it/airgap-distro):
     Debian-based Linux distro based on BitKey. Looks unmaintained, but the code
     is very simple and can probably be updated easily.
