@@ -253,10 +253,10 @@ external webcam, alternatively use audio codes via amodem.
     -   If the laptop only supports BIOS/MBR (usually old laptops manufactured
         before 2012 or so), see the next subsection
 -   Generate a strong password and store it.
--   Use GParted to create a separate encrypted partition in the boot device and
-    use the password from the previous step. Note that this can be done from
-    Tails after booting it, but it only works in EFI/GPT mode, and it's easier
-    to do it before booting tails.
+-   Use Gnome Disks (another option is GParted) to create a separate encrypted
+    partition in the boot device and use the password from the previous step.
+    Note that this can be done from Tails after booting it, but it only works in
+    EFI/GPT mode, and it's easier to do it before booting tails.
 -   Boot tails
 -   Disable networking in advanced options
 
