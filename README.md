@@ -263,9 +263,13 @@ external webcam, alternatively use audio codes via amodem.
 ### Making Tails work in BIOS/MBR mode
 
 The Linux Tails image only supports booting in EFI/GPT mode, so we need to do
-some modifications to the boot device (USB/DVD) to support BIOS/MBR. The
-following shell commands should be in a Linux terminal, and assume the Tails
-boot device is `/dev/sdX`:
+some modifications to the boot device (USB/DVD) to support BIOS/MBR.
+
+The first step is to
+[download](https://wiki.syslinux.org/wiki/index.php?title=Download) the archive
+of the latest stable version of Syslinux and extract it to a directory which we
+reference as `${SYSLINUX_DIR}` in the shell code below. Then, run the following
+shell commands in a Linux terminal, where `/dev/sdX` is the Tails boot device.
 
 ```sh
 # Convert the partition table to MBR
@@ -275,8 +279,7 @@ sudo parted --script /dev/sdX set 1 boot on
 # Mount the Tails boot device
 sudo mkdir -p /mnt/tails
 sudo mount /dev/sdX1 /mnt/tails
-sudo dd bs=440 count=1 conv=notrunc if=/mnt/tails/utils/mbr/mbr.bin of=/dev/sdX
-sudo umount /dev/sdX1
+sudo dd bs=440 count=1 conv=notrunc if="${SYSLINUX_DIR}/bios/mbr/mbr.bin" of=/dev/sdX
 sync
 ```
 
@@ -287,9 +290,8 @@ Changes considered:
     not recommended by `gdisk`. Rejected because there's no reason to support it
     if the boot device is only used by a single laptop, which is the best
     practice for security.
--   [Downloading](https://wiki.syslinux.org/wiki/index.php?title=Download) an
-    archive of the latest stable version of Syslinux and using its MBR code,
-    instead of relying on the files included in Tails.
+-   Using `/utils/mbr/mbr.bin` from the Tails boot partition. For some reason,
+    the boot failed when I tried that.
 -   Running the `syslinux`/`extlinux` tools from Syslinux to install the
     bootloader into the filesystem. Tails already uses Syslinux so the MBR code
     is able to find it, but it may be safer to install it in case Tails switches
