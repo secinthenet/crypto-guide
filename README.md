@@ -11,8 +11,8 @@
 -   [Principles](#principles)
 -   [Threat model](#threat-model)
 -   [Terminology](#terminology)
-    -   [BIP32 seed](#bip32-seed)
-    -   [BIP32 root key](#bip32-root-key)
+    -   [BIP32 master seed](#bip32-master-seed)
+    -   [BIP32 master key](#bip32-master-key)
     -   [BIP39 entropy](#bip39-entropy)
     -   [BIP39 mnemonic](#bip39-mnemonic)
     -   [Individual private keys](#individual-private-keys)
@@ -27,6 +27,8 @@
     -   [Sending funds](#sending-funds)
     -   [Receiving funds](#receiving-funds)
     -   [Testing backups](#testing-backups)
+-   [Preparing a quarantined laptop](#preparing-a-quarantined-laptop)
+    -   [Making Tails work in BIOS/MBR mode](#making-tails-work-in-biosmbr-mode)
 -   [Generating secrets](#generating-secrets)
 -   [Storing seeds](#storing-seeds)
 -   [Encrypting seeds at rest](#encrypting-seeds-at-rest)
@@ -40,6 +42,7 @@
     -   [Passphrase generation](#passphrase-generation)
     -   [Seed generation](#seed-generation)
     -   [HD wallets address derivation](#hd-wallets-address-derivation)
+        -   [BIP85 implementations](#bip85-implementations)
     -   [Air-gapped communication](#air-gapped-communication)
         -   [Audible](#audible)
         -   [Visual](#visual)
@@ -111,14 +114,14 @@ trust strangers on the internet with anything important.
 
 ## Terminology
 
-### BIP32 seed
+### BIP32 master seed
 
 The pseudo-random byte sequence of length 128-512 bits used in the first step of
 BIP32's
 [master key derivation](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki#master-key-generation).
 Typically, backed up using BIP39 mnemonics.
 
-### BIP32 root key
+### BIP32 master key
 
 The extended private key at the top of the BIP32 hierarchy. Usually denoted as
 `m` in BIP32 derivations.
@@ -133,7 +136,7 @@ decoding the result using a word list.
 ### BIP39 mnemonic
 
 The mnemonic phrase computed in BIP39 from the BIP39 entropy. This mnemonic is
-later hashed with an optional password to derive the BIP32 seed.
+later hashed with an optional password to derive the BIP32 master seed.
 
 ### Individual private keys
 
@@ -190,7 +193,8 @@ signed transactions.
 -   Prepare secure quarantined (AKA eternally air gapped) devices
 -   Generate seeds and auxiliary secrets using one or more quarantined devices.
 -   Verify the seeds derive the same master public keys (xpub/ypub/zpub) with at
-    least two independent implementations.
+    least two implementations that are as independent as possible (including
+    their transitive dependencies).
 -   Transfer master public keys (xpub/ypub/zpub) to the online read-only wallet.
 -   Verify that the new wallet can receive and spend funds (see subsection
     below).
@@ -256,9 +260,11 @@ external webcam, alternatively use audio codes via amodem.
 -   Use Gnome Disks (another option is GParted) to create a separate encrypted
     partition in the boot device and use the password from the previous step.
     Note that this can be done from Tails after booting it, but it only works in
-    EFI/GPT mode, and it's easier to do it before booting tails.
--   Boot tails
--   Disable networking in advanced options
+    EFI/GPT mode, and it's easier to do it before booting Tails.
+-   Boot Tails.
+-   In the Tails greeter, select Additional Settings and then disable networking
+    and create an admin password (you can reuse the previous password used for
+    disk encryption).
 
 ### Making Tails work in BIOS/MBR mode
 
@@ -552,6 +558,18 @@ See references below for implementation options.
 -   [pywallet](https://github.com/ranaroussi/pywallet): HD wallet creator that
     supports BIP44 (but requires forking to support BIP49). As of 2019-12-04,
     has many open issues with no response from the author.
+
+#### BIP85 implementations
+
+-   <https://github.com/AndreasGassmann/bip85>: Javascript implementation. Used
+    by [github.com/iancoleman/bip39](https://github.com/iancoleman/bip39).
+-   <https://github.com/hoganri/bip85-js>: Javascript implementation.
+-   <https://github.com/ethankosakovsky/bip85>: Reference implementation in
+    Python.
+-   <https://github.com/rikitau/rust-bip85>: Rust library implementation.
+    Doesn't include a CLI, but includes easy examples and the code looks clean.
+    -   <https://github.com/rikitau/wasm-bip85>: HTML frontend using WebAssembly
+        with rust-bip85
 
 ### Air-gapped communication
 
