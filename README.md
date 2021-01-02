@@ -28,6 +28,8 @@
     -   [Receiving funds](#receiving-funds)
     -   [Testing backups](#testing-backups)
 -   [Preparing a quarantined laptop](#preparing-a-quarantined-laptop)
+    -   [Creating boot USB](#creating-boot-usb)
+    -   [Booting quarantined laptop](#booting-quarantined-laptop)
     -   [Making Tails work in BIOS/MBR mode](#making-tails-work-in-biosmbr-mode)
 -   [Generating secrets](#generating-secrets)
 -   [Storing seeds](#storing-seeds)
@@ -44,6 +46,7 @@
     -   [Building from source](#building-from-source)
     -   [Using a virtual keyboard to type secrets](#using-a-virtual-keyboard-to-type-secrets)
     -   [Disabling risky drivers (Wifi, Bluetooth, etc.)](#disabling-risky-drivers-wifi-bluetooth-etc)
+    -   [Removing USB flash drive after boot](#removing-usb-flash-drive-after-boot)
     -   [Avoiding installation of OS packages](#avoiding-installation-of-os-packages)
     -   [Stripping down OS installation to bare minimum](#stripping-down-os-installation-to-bare-minimum)
     -   [Avoiding X11](#avoiding-x11)
@@ -259,6 +262,8 @@ TODO: Write guidelines for buying laptop (see Glacier for reference). Preferably
 use a laptop with a camera for communicating with QR codes, or connect an
 external webcam, alternatively use audio codes via amodem.
 
+### Creating boot USB
+
 -   Update BIOS to latest version from manufacturer
 -   Physically remove risky components (not all of them may be easily
     removable):
@@ -282,6 +287,9 @@ external webcam, alternatively use audio codes via amodem.
     to do it before booting Tails.
 -   Decrypt and mount the encrypted partition in the setup computer.
 -   Copy the `setup_tails.sh` script and other tools to the encrypted partition.
+
+### Booting quarantined laptop
+
 -   Boot Tails.
 -   In the Tails greeter, select Additional Settings and then disable networking
     and create an admin password (you can reuse the previous password used for
