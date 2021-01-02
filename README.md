@@ -490,6 +490,35 @@ camera/scanner, while audible codes require a microphone and speakers.
 
 See references below for implementation options.
 
+## Hardware wallets
+
+An issue common to most hardware wallets, including Trezor and Ledger, is that
+they are not truly air gapped: they use SD cards or USB to communicate with an
+internet connected host. Cobo Vault is one device which does this right, and
+uses QR codes to communicate with the host.
+
+### Trezor vs Ledger
+
+The most popular wallet vendors are [Trezor](https://trezor.io/) and
+[Ledger](https://www.ledger.com/), and both support a large number of
+currencies.
+
+Trezor seems better to me since it's fully OSS (hardware, firmware, and
+software), and both of the founders have been active in the Bitcoin community
+for a long time and seem to have a good reputation. That said, Trezor had at
+least one critical issue in the past—it
+[stored the device PIN in plaintext](https://news.ycombinator.com/item?id=15589718).
+To their defense, they quickly fix reported security issues, and are responsive
+in general.
+
+Ledger also had
+[serious security issues](https://saleemrashid.com/2018/03/20/breaking-ledger-security-model/)
+in the past, and their response wasn't great—according to linked article, their
+CEO "made some comments on Reddit which were fraught with technical inaccuracy".
+See the
+[Interaction with Ledger](https://saleemrashid.com/2018/03/20/breaking-ledger-security-model/#interaction-with-ledger)
+section for more details.
+
 ## Ideas that need more research
 
 ### Building from source
@@ -730,11 +759,6 @@ reducing the risk of malware being able to communicate with it to steal secrets.
 
 ### Wallets: hardware
 
-An issue common to most hardware wallets, including Trezor and Ledger, is that
-they are not truly air gapped: they use SD cards or USB to communicate with an
-internet connected host. Cobo Vault is one device which does this right, and
-uses QR codes to communicate with the host.
-
 -   [List from bitcoin.org](https://bitcoin.org/en/choose-your-wallet?step=5&platform=hardware)
 -   <https://diybitcoinhardware.com>: references for building a DYI hardware
     wallet
@@ -745,39 +769,17 @@ uses QR codes to communicate with the host.
 -   [SatoChipApplet](https://github.com/Toporin/SatochipApplet): DIY wallet
     based on a Java Card applet. Can be run on a Yubikey Neo.
 
-#### Trezor vs Ledger
-
-The most popular wallet vendors are [Trezor](https://trezor.io/) and
-[Ledger](https://www.ledger.com/), and both support a large number of
-currencies.
-
-Trezor seems better to me since it's fully OSS (hardware, firmware, and
-software), and both of the founders have been active in the Bitcoin community
-for a long time and seem to have a good reputation. That said, Trezor had at
-least one critical issue in the past—it
-[stored the device PIN in plaintext](https://news.ycombinator.com/item?id=15589718).
-To their defense, they quickly fix reported security issues, and are responsive
-in general.
-
-Ledger also had
-[serious security issues](https://saleemrashid.com/2018/03/20/breaking-ledger-security-model/)
-in the past, and their response wasn't great—according to linked article, their
-CEO "made some comments on Reddit which were fraught with technical inaccuracy".
-See the
-[Interaction with Ledger](https://saleemrashid.com/2018/03/20/breaking-ledger-security-model/#interaction-with-ledger)
-section for more details.
-
 ### Wallets: utilities
 
 -   <https://walletsrecovery.org>: List of wallets with their supported
     derivation paths and other features, aimed to help wallet users understand
     the interoperability between wallets.
--   [HD Wallet Scanner](https://github.com/alexk111/HD-Wallet-Scanner): Node.js
-    tool to find used addresses in HD wallets, bypassing the gap limit of 20
-    specified in BIP32.
 -   [HWI](https://github.com/bitcoin-core/HWI): python library and CLI for
     interacting with hardware wallets in a unified way, compatible with multiple
     models.
+-   [HD Wallet Scanner](https://github.com/alexk111/HD-Wallet-Scanner): Node.js
+    tool to find used addresses in HD wallets, bypassing the gap limit of 20
+    specified in BIP32.
 
 ### Split HD seeds and secret sharing (SLIP39)
 
