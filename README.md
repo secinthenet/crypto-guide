@@ -555,6 +555,13 @@ most software keyloggers, and some audio side channel attacks.
 
 On Linux, it's possible to blacklist the kernel modules for these devices.
 
+### Removing USB flash drive after boot
+
+It seems there may be an issue doing this in Tails, but it should be possible to
+load everything to RAM and then remove the USB.
+[AirGap Vault Distro](https://github.com/airgap-it/airgap-distro) documents that
+this is possible with their setup.
+
 ### Avoiding installation of OS packages
 
 Installing OS packages such as qrencode requires root permissions, which is
@@ -861,11 +868,13 @@ booting it from a USB stick or DVD.
     activity.
     -   <https://github.com/brianddk/trezor-tails>: Setting for Tails to be able
         to use Trezor.
-    -   <https://github.com/SovereignNode/tails-cold-storage>: A guide on
-        creating Bitcoin cold storage using Tails.
     -   <https://github.com/PulpCattel/Tails-BitcoinCore-Wasabi>: A guide for
         using Tails, Bitcoin core, and Wasabi to implement an amnesic wallet
         (though it's still online)
+    -   <https://github.com/SovereignNode/tails-cold-storage>: A guide on
+        creating Bitcoin cold storage using Tails and Electrum. Advocates a
+        setup without a true airgap (using USB drives), and uses an overly
+        complex backup. A multisig setup such as Glacier seems strictly better.
 -   [AirGap Vault Distribution](https://github.com/airgap-it/airgap-distro):
     Debian-based Linux distro based on BitKey. Looks unmaintained, but the code
     is very simple and can probably be updated easily.
