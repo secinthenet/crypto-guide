@@ -532,6 +532,10 @@ binaries match bit-for-bit.
 Using a virtual keyboard significantly reduces the risk of hardware keyloggers,
 most software keyloggers, and some audio side channel attacks.
 
+### Disabling risky drivers (Wifi, Bluetooth, etc.)
+
+On Linux, it's possible to blacklist the kernel modules for these devices.
+
 ### Avoiding installation of OS packages
 
 Installing OS packages such as qrencode requires root permissions, which is
