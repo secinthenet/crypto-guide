@@ -37,7 +37,16 @@
     -   [Multisig seeds](#multisig-seeds)
     -   [Discussion: split vs multisig seeds](#discussion-split-vs-multisig-seeds)
 -   [Secure air-gapped communication](#secure-air-gapped-communication)
--   [Notes and references](#notes-and-references)
+-   [Ideas that need more research](#ideas-that-need-more-research)
+    -   [Building from source](#building-from-source)
+    -   [Using a virtual keyboard to type secrets](#using-a-virtual-keyboard-to-type-secrets)
+    -   [Avoiding installation of OS packages](#avoiding-installation-of-os-packages)
+    -   [Stripping down OS installation to bare minimum](#stripping-down-os-installation-to-bare-minimum)
+    -   [Avoiding X11](#avoiding-x11)
+    -   [Diversifying the operating system](#diversifying-the-operating-system)
+    -   [Using eternally quarantined printers](#using-eternally-quarantined-printers)
+-   [Misc notes](#misc-notes)
+-   [References](#references)
     -   [Cold storage protocols](#cold-storage-protocols)
     -   [Passphrase generation](#passphrase-generation)
     -   [Seed generation](#seed-generation)
@@ -56,7 +65,8 @@
     -   [Split HD seeds and secret sharing (non-standard implementations)](#split-hd-seeds-and-secret-sharing-non-standard-implementations)
     -   [Multisig](#multisig)
     -   [Operation systems for cold storage](#operation-systems-for-cold-storage)
-    -   [General](#general)
+    -   [Libraries and CLI tools](#libraries-and-cli-tools)
+        -   [On hold for now](#on-hold-for-now)
 
 ## Goals
 
@@ -183,14 +193,15 @@ securely sending funds, each providing a single signature.
 
 A transaction format standard for partially signed Bitcoin transactions defined
 in [BIP174](https://github.com/bitcoin/bips/blob/master/bip-0174.mediawiki).
-Facilitates interoperability between different wallets that process partially
-signed transactions.
+Prior to the adoption of PSBT, every wallet implemented its own format for
+partially signed transactions used in multisig. This meant that it was not
+always possible to use different wallets to process multisig transactions.
 
 ## Overview
 
 ### Creating a wallet
 
--   Prepare secure quarantined (AKA eternally air gapped) devices
+-   Prepare secure quarantined devices (AKA eternally air gapped).
 -   Generate seeds and auxiliary secrets using one or more quarantined devices.
 -   Verify the seeds derive the same master public keys (xpub/ypub/zpub) with at
     least two implementations that are as independent as possible (including
@@ -246,8 +257,12 @@ use a laptop with a camera for communicating with QR codes, or connect an
 external webcam, alternatively use audio codes via amodem.
 
 -   Update BIOS to latest version from manufacturer
--   Recommended: physically remove the Wifi and Bluetooth adapters
--   Recommended: remove internal hard drives
+-   Physically remove risky components (not all of them may be easily
+    removable):
+    -   Wifi
+    -   Bluetooth
+    -   Hard drives
+    -   Sound (microphone, speakers)
 -   Install Linux Tails to a USB/DVD using the
     [installation instructions](https://tails.boum.org/install/index.en.html)
     -   Download the latest image and signature
@@ -258,13 +273,21 @@ external webcam, alternatively use audio codes via amodem.
         before 2012 or so), see the next subsection
 -   Generate a strong password and store it.
 -   Use Gnome Disks (another option is GParted) to create a separate encrypted
-    partition in the boot device and use the password from the previous step.
-    Note that this can be done from Tails after booting it, but it only works in
-    EFI/GPT mode, and it's easier to do it before booting Tails.
+    partition (either in the boot device or another external storage device) and
+    use the password from the previous step. Note that this can be done from
+    Tails after booting it, but it only works in EFI/GPT mode, and it's easier
+    to do it before booting Tails.
+-   Decrypt and mount the encrypted partition in the setup computer.
+-   Copy the `setup_tails.sh` script and other tools to the encrypted partition.
 -   Boot Tails.
 -   In the Tails greeter, select Additional Settings and then disable networking
     and create an admin password (you can reuse the previous password used for
     disk encryption).
+-   Open the file manager and click on the encrypted partition to decrypt and
+    mount it.
+-   Open a terminal in the mount point of the encrypted partition (can be
+    accessed by right clicking in the file manager).
+-   Run the `setup_tails.sh` script.
 
 ### Making Tails work in BIOS/MBR mode
 
@@ -467,7 +490,68 @@ camera/scanner, while audible codes require a microphone and speakers.
 
 See references below for implementation options.
 
-## Notes and references
+## Ideas that need more research
+
+### Building from source
+
+Bitcoin Core and other used software can be built from source, ideally using a
+reproducible build process that can be done on multiple computers to verify the
+binaries match bit-for-bit.
+
+### Using a virtual keyboard to type secrets
+
+Using a virtual keyboard significantly reduces the risk of hardware keyloggers,
+most software keyloggers, and some audio side channel attacks.
+
+### Avoiding installation of OS packages
+
+Installing OS packages such as qrencode requires root permissions, which is
+risky, because a compromised package could write data to persistent storage such
+as the EFI NVRAM, while regular users don't have this permission.
+
+Methods that can be used to avoid this:
+
+-   Building the package manually with all its dependencies without installing
+    it. This can be done from an online computer (booting a live CD)
+-   Installing the package in a container
+
+### Stripping down OS installation to bare minimum
+
+By default, most distributions contain a lot of software packages that are not
+required for this protocol, which introduces more risk.
+
+### Avoiding X11
+
+X11 is very old and has many security issues, the most notorious one being that
+every window can log keys from any other window. Wayland has better security in
+theory, though it's less battle tested.
+
+It should also be possible to do everything from a terminal, with the possible
+exception of scanning a QR code, or at least seeing what is being scanned. It
+can be overcome in theory by rendering the video to the terminal.
+
+### Diversifying the operating system
+
+Using another operating system like OpenBSD in the offline signing wallet
+
+### Using eternally quarantined printers
+
+Buying eternally quarantined printers that will be used by the offline signing
+wallet to print the (partially) signed transaction. This will make it possible
+to use the offline signing wallet in a room with no other electronic devices,
+reducing the risk of malware being able to communicate with it to steal secrets.
+
+## Misc notes
+
+-   [Blockstream.info](https://blockstream.info/) is a good open source block
+    explorer.
+-   https://github.com/BlockchainCommons/Research
+-   Reusing an address for withdrawals introduces risks and should be avoided.
+    See details in
+    [Glacier's design doc](https://glacierprotocol.org/assets/design-doc-v0.9-beta.pdf),
+    section "Address Reuse and HD Wallets", page 20.
+
+## References
 
 ### Cold storage protocols
 
@@ -702,6 +786,7 @@ section for more details.
     [SLIP-0039](https://github.com/satoshilabs/slips/blob/master/slip-0039.md):
     Shamir's Secret-Sharing for Mnemonic Codes.
 -   [github.com/iancoleman/slip39](https://github.com/iancoleman/slip39)
+    -   Uses [slip39-js](https://github.com/ilap/slip39-js) internally.
 -   [Hermit](https://github.com/unchained-capital/hermit): CLI wallet
     implementing [split seeds](#split-seeds) following
     [SLIP-0039](https://github.com/satoshilabs/slips/blob/master/slip-0039.md).
@@ -749,6 +834,8 @@ booting it from a USB stick or DVD.
     internet connections are forced to go through Tor. Bundled with Electrum.
     Seems to be the best maintained security/privacy focused OS based on git
     activity.
+    -   <https://github.com/brianddk/trezor-tails>: Setting for Tails to be able
+        to use Trezor.
     -   <https://github.com/SovereignNode/tails-cold-storage>: A guide on
         creating Bitcoin cold storage using Tails.
     -   <https://github.com/PulpCattel/Tails-BitcoinCore-Wasabi>: A guide for
@@ -773,15 +860,24 @@ booting it from a USB stick or DVD.
     Tails: amnesic by default (no data persistence) and uses Tor to route all
     traffic. Doesn't look maintained based on Github activity.
 
-### General
+### Libraries and CLI tools
 
--   [Blockstream.info](https://blockstream.info/) is a good open source block
-    explorer.
--   https://github.com/BlockchainCommons/Research
--   Reusing an address for withdrawals introduces risks and should be avoided.
-    See details in
-    [Glacier's design doc](https://glacierprotocol.org/assets/design-doc-v0.9-beta.pdf),
-    section "Address Reuse and HD Wallets", page 20.
--   When typing passwords, you can increase the security by doing some of the
-    typing with a virtual keyboard, which is less susceptible to hardware key
-    loggers and some audio side channel attacks.
+-   https://github.com/btcsuite/btcutil
+-   https://github.com/1200wd/bitcoinlib
+-   [bc-seedtool-cli](https://github.com/BlockchainCommons/bc-seedtool-cli):
+    failed building a static binary (complained about missing `libgcc_s.a`),
+    need to retry in a Docker container to see if it has anything to do with my
+    specific setup.
+-   [bc-keytool-cli](https://github.com/BlockchainCommons/bc-keytool-cli)
+-   https://github.com/richardkiss/pycoin
+-   https://github.com/alexbosworth/psbt
+-   https://github.com/ofek/bit
+
+#### On hold for now
+
+-   [libbitcoin-explorer](https://github.com/libbitcoin/libbitcoin-explorer): as
+    of 2020-12-31
+    [static binaries don't work](https://github.com/libbitcoin/libbitcoin-explorer/issues/677)
+-   [psbt-decoder](https://github.com/achow101/psbt-decoder): Python CLI tool
+    with no dependencies for decoding a PSBT. Doesn't support showing outputs
+    yet.
