@@ -497,6 +497,22 @@ they are not truly air gapped: they use SD cards or USB to communicate with an
 internet connected host. Cobo Vault is one device which does this right, and
 uses QR codes to communicate with the host.
 
+### Using a PIN and/or passphrase in hardware wallets
+
+Using a PIN should be sufficiently secure provided that:
+
+-   The hardware wallet throttles PIN attempts and has a self destruct mechanism
+    after many wrong attempts
+-   The hardware wallet stores the secrets (like xprv or seed phrase) in a
+    secure element
+
+TODO: document which wallets have these features.
+
+When using either a PIN or passphrase with this security protocol, it
+can be stored in a password manager (ideally in a dedicated virtual vault and
+more protection than a regular password). This way, you don't have to do the
+restore process (which is risky) to be able to restore the PIN/passphrase.
+
 ### Trezor vs Ledger
 
 The most popular wallet vendors are [Trezor](https://trezor.io/) and
