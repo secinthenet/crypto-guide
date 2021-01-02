@@ -37,9 +37,13 @@
     -   [Multisig seeds](#multisig-seeds)
     -   [Discussion: split vs multisig seeds](#discussion-split-vs-multisig-seeds)
 -   [Secure air-gapped communication](#secure-air-gapped-communication)
+-   [Hardware wallets](#hardware-wallets)
+    -   [Using a PIN and/or passphrase in hardware wallets](#using-a-pin-andor-passphrase-in-hardware-wallets)
+    -   [Trezor vs Ledger](#trezor-vs-ledger)
 -   [Ideas that need more research](#ideas-that-need-more-research)
     -   [Building from source](#building-from-source)
     -   [Using a virtual keyboard to type secrets](#using-a-virtual-keyboard-to-type-secrets)
+    -   [Disabling risky drivers (Wifi, Bluetooth, etc.)](#disabling-risky-drivers-wifi-bluetooth-etc)
     -   [Avoiding installation of OS packages](#avoiding-installation-of-os-packages)
     -   [Stripping down OS installation to bare minimum](#stripping-down-os-installation-to-bare-minimum)
     -   [Avoiding X11](#avoiding-x11)
@@ -59,7 +63,6 @@
     -   [Wallets: desktop](#wallets-desktop)
     -   [Wallets: Android](#wallets-android)
     -   [Wallets: hardware](#wallets-hardware)
-        -   [Trezor vs Ledger](#trezor-vs-ledger)
     -   [Wallets: utilities](#wallets-utilities)
     -   [Split HD seeds and secret sharing (SLIP39)](#split-hd-seeds-and-secret-sharing-slip39)
     -   [Split HD seeds and secret sharing (non-standard implementations)](#split-hd-seeds-and-secret-sharing-non-standard-implementations)
@@ -508,10 +511,10 @@ Using a PIN should be sufficiently secure provided that:
 
 TODO: document which wallets have these features.
 
-When using either a PIN or passphrase with this security protocol, it
-can be stored in a password manager (ideally in a dedicated virtual vault and
-more protection than a regular password). This way, you don't have to do the
-restore process (which is risky) to be able to restore the PIN/passphrase.
+When using either a PIN or passphrase with this security protocol, it can be
+stored in a password manager (ideally in a dedicated virtual vault and more
+protection than a regular password). This way, you don't have to do the restore
+process (which is risky) to be able to restore the PIN/passphrase.
 
 ### Trezor vs Ledger
 
