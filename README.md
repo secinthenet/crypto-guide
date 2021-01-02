@@ -1,6 +1,6 @@
 # Cryptocoins management guide
 
-> ⚠️ **NOTE**: WIP.
+> ⚠️ **NOTE**: WIP,  no guarantees.
 
 ## Table of Contents
 
