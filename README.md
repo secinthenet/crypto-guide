@@ -1,6 +1,6 @@
 # Cryptocoins management guide
 
-> ⚠️ **NOTE**: WIP,  no guarantees.
+> ⚠️ **NOTE**: WIP, no guarantees.
 
 ## Table of Contents
 
@@ -734,6 +734,8 @@ reducing the risk of malware being able to communicate with it to steal secrets.
 
 #### Visual
 
+-   `qrencode` can be used to generate QR codes
+-   `zbar` can be used to decode QR codes from images or a webcam
 -   [AirGap](https://airgap.it/): OSS mobile apps for managing the secrets in a
     dedicated offline device, and then broadcasting transactions with another
     "regular" internet connected device. Communication is done with QR codes.
@@ -774,15 +776,19 @@ reducing the risk of malware being able to communicate with it to steal secrets.
     the balance of Hierarchical Deterministic (HD) wallets. Supports multisig +
     segwit wallets.
 -   [MyEtherWallet](https://github.com/MyEtherWallet/MyEtherWallet)
--   [MyCrypto](https://github.com/MyCryptoHQ/MyCrypto)
+-   [MyCrypto](https://github.com/MyCryptoHQ/MyCrypto): can be used for
+    [offline signing](https://support.mycrypto.com/how-to/sending/how-to-make-an-offline-transaction),
+    though the documentation is outdated, and it's not clear if it's possible to
+    create the unsigned transaction in the latest desktop app (v1.7.13).
+-   [Gnosis Safe](https://gnosis-safe.io/): Ethereum wallet with support for
+    multisig with Trezor and Ledger
+    -   <https://github.com/gnosis/safe-cli>
+    -   <https://github.com/gnosis/MultiSigWallet>: Older Gnosis multisig wallet
 -   [coinbin](https://github.com/OutCast3k/coinbin/)
 -   [Copay](https://github.com/bitpay/copay): TODO
 -   [Wasabi](https://github.com/zkSNACKs/WalletWasabi/): privacy focused bitcoin
     wallet supporting CoinJoin. As of 2019-10-30, seems to have very active
     development.
--   [Gnosis Safe](https://gnosis-safe.io/): Ethereum wallet with support for
-    multisig with Trezor and Ledger
-    -   <https://github.com/gnosis/MultiSigWallet>: Older Gnosis multisig wallet
 -   [gowallet](https://github.com/aiportal/gowallet): cross platform TUI wallet
     written in golang. Doesn't look maintained, and uses custom cryptography.
 
@@ -794,6 +800,8 @@ reducing the risk of malware being able to communicate with it to steal secrets.
     wallet with support for SegWit, RBF, and Lightning network.
 -   [Copay](https://github.com/bitpay/copay): TODO
 -   [Samourai Android Wallet](https://github.com/Samourai-Wallet/samourai-wallet-android)
+-   [Parity Signer](https://github.com/paritytech/parity-signer): Android and
+    iOS app for using an offline smartphone as a hardware wallet.
 
 ### Wallets: hardware
 
@@ -911,6 +919,10 @@ booting it from a USB stick or DVD.
     need to retry in a Docker container to see if it has anything to do with my
     specific setup.
 -   [bc-keytool-cli](https://github.com/BlockchainCommons/bc-keytool-cli)
+-   https://github.com/ethereumjs/ethereumjs-tx
+-   <https://github.com/GFJHogue/ethereum-tx-decoder>: Ethereum transaction decoder in NodeJS
+-   https://github.com/ConsenSys/abi-decoder
+-   https://github.com/foxnut/go-hdwallet
 -   https://github.com/richardkiss/pycoin
 -   https://github.com/alexbosworth/psbt
 -   https://github.com/ofek/bit
