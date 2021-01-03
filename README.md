@@ -610,8 +610,10 @@ reducing the risk of malware being able to communicate with it to steal secrets.
 
 ## Misc notes
 
--   [Blockstream.info](https://blockstream.info/) is a good open source block
-    explorer.
+-   [Blockstream.info](https://blockstream.info/) is a good open source Bitcoin
+    block explorer.
+-   <https://github.com/poanetwork/blockscout> looks like a good open source
+    Ethereum block explorer.
 -   https://github.com/BlockchainCommons/Research
 -   Reusing an address for withdrawals introduces risks and should be avoided.
     See details in
@@ -753,6 +755,7 @@ reducing the risk of malware being able to communicate with it to steal secrets.
 -   https://github.com/unchained-capital/caravan
 -   https://github.com/sparrowwallet/sparrow
 -   Electrum
+-   https://github.com/KayBeSee/lily-wallet
 -   [Junction](https://github.com/justinmoon/junction): GUI for using hardware
     wallets with Bitcoin Core. Uses HWI to interface with hardware wallets. As
     of 2020-12-25, seems to be testnest only, and unmaintained since
@@ -775,13 +778,21 @@ reducing the risk of malware being able to communicate with it to steal secrets.
 -   [Beancounter](https://github.com/square/beancounter): utility for auditing
     the balance of Hierarchical Deterministic (HD) wallets. Supports multisig +
     segwit wallets.
--   [MyEtherWallet](https://github.com/MyEtherWallet/MyEtherWallet)
+-   [MyEtherWallet](https://github.com/MyEtherWallet/MyEtherWallet) has
+    [a utility](https://www.myetherwallet.com/en/send-offline-helper) for
+    building an unsigned transaction (essentially just computing the nonce and
+    gas), which can then be transferred to an offline machine for signing.
 -   [MyCrypto](https://github.com/MyCryptoHQ/MyCrypto): can be used for
     [offline signing](https://support.mycrypto.com/how-to/sending/how-to-make-an-offline-transaction),
     though the documentation is outdated, and it's not clear if it's possible to
-    create the unsigned transaction in the latest desktop app (v1.7.13).
+    create the unsigned transaction in the latest desktop app (v1.7.13). The
+    legacy website has this feature where it's called "Send Offline". I'm not
+    sure if there's a desktop app for the legacy website, but it's probably
+    possible to run it locally as well. However, as of 2021-01-02, the "Send
+    Offline" feature looks broken: it only computes the nonce and not the gas.
 -   [Gnosis Safe](https://gnosis-safe.io/): Ethereum wallet with support for
-    multisig with Trezor and Ledger
+    multisig with Trezor and Ledger. As of 2021-01-04, seems it's not possible
+    [to run it offline or use a computer as a signer](https://github.com/gnosis/safe-react/issues/1461).
     -   <https://github.com/gnosis/safe-cli>
     -   <https://github.com/gnosis/MultiSigWallet>: Older Gnosis multisig wallet
 -   [coinbin](https://github.com/OutCast3k/coinbin/)
@@ -920,7 +931,8 @@ booting it from a USB stick or DVD.
     specific setup.
 -   [bc-keytool-cli](https://github.com/BlockchainCommons/bc-keytool-cli)
 -   https://github.com/ethereumjs/ethereumjs-tx
--   <https://github.com/GFJHogue/ethereum-tx-decoder>: Ethereum transaction decoder in NodeJS
+-   <https://github.com/GFJHogue/ethereum-tx-decoder>: Ethereum transaction
+    decoder in NodeJS
 -   https://github.com/ConsenSys/abi-decoder
 -   https://github.com/foxnut/go-hdwallet
 -   https://github.com/richardkiss/pycoin
