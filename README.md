@@ -614,6 +614,8 @@ reducing the risk of malware being able to communicate with it to steal secrets.
     block explorer.
 -   <https://github.com/poanetwork/blockscout> looks like a good open source
     Ethereum block explorer.
+-   <https://github.com/trezor/blockbook> looks like an interesting balance
+    backend for multiple coins
 -   https://github.com/BlockchainCommons/Research
 -   Reusing an address for withdrawals introduces risks and should be avoided.
     See details in
