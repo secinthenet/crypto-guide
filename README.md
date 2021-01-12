@@ -923,6 +923,10 @@ booting it from a USB stick or DVD.
     Tails: amnesic by default (no data persistence) and uses Tor to route all
     traffic. Doesn't look maintained based on Github activity.
 
+### Price discovery
+
+-   https://github.com/BlockchainCommons/spotbit
+
 ### Libraries and CLI tools
 
 -   https://github.com/btcsuite/btcutil
