@@ -794,6 +794,8 @@ reducing the risk of malware being able to communicate with it to steal secrets.
 - [Wasabi](https://github.com/zkSNACKs/WalletWasabi/): privacy focused bitcoin
   wallet supporting CoinJoin. As of 2019-10-30, seems to have very active
   development.
+- [JoinMarket](https://github.com/JoinMarket-Org/joinmarket-clientserver):
+  CoinJoin focused wallet.
 - [gowallet](https://github.com/aiportal/gowallet): cross platform TUI wallet
   written in golang. Doesn't look maintained, and uses custom cryptography.
 
@@ -806,7 +808,8 @@ reducing the risk of malware being able to communicate with it to steal secrets.
 - [Copay](https://github.com/bitpay/copay): TODO
 - [Samourai Android Wallet](https://github.com/Samourai-Wallet/samourai-wallet-android)
 - [Parity Signer](https://github.com/paritytech/parity-signer): Android and iOS
-  app for using an offline smartphone as a hardware wallet.
+  app for using an offline smartphone as a hardware wallet for Ethereum and
+  Substrate based chains (like Polkadot).
 
 ### Wallets: hardware
 
