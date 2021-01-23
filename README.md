@@ -810,6 +810,7 @@ reducing the risk of malware being able to communicate with it to steal secrets.
 - [Parity Signer](https://github.com/paritytech/parity-signer): Android and iOS
   app for using an offline smartphone as a hardware wallet for Ethereum and
   Substrate based chains (like Polkadot).
+- <https://github.com/bithyve/hexa>
 
 ### Wallets: hardware
 
