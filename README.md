@@ -630,15 +630,17 @@ reducing the risk of malware being able to communicate with it to steal secrets.
   - [Proof Wallet](https://github.com/hodlwave/proof-wallet) is another Glacier
     fork which adds support for HD wallets and sequential signing. Seems
     maintained as of 2020-11-28.
-- [Subzero](https://github.com/square/subzero): Square's cold storage solution
-  using HSMs for storage, QR codes for hot/cold storage communication, with
-  multiple signatures required. Applied specifically to Square's hardware setup,
-  but the ideas are general and the documentation is clear.
+- [Yeti Cold](https://yeticold.com/)
+  ([github repo](https://github.com/JWWeatherman/yeticold)): TODO
 - [10x Security Bitcoin Guide](https://btcguide.github.io): Bitcoin security
   guide by Michael Flaxman advocating for multisig seeds managed by hardware
   wallets from different vendors.
   - [How should I store my bitcoin?](https://medium.com/@michaelflaxman/how-should-i-store-my-bitcoin-43874ac208e4):
     good article by Michael Flaxman, published on 2017-09-28.
+- [Subzero](https://github.com/square/subzero): Square's cold storage solution
+  using HSMs for storage, QR codes for hot/cold storage communication, with
+  multiple signatures required. Applied specifically to Square's hardware setup,
+  but the ideas are general and the documentation is clear.
 - [Pro-Tips for Ethereum Wallet Management](https://silentcicero.gitbooks.io/pro-tips-for-ethereum-wallet-management/content/):
   Ethereum guide from February 2018.
 - [SmartCustody](https://www.smartcustody.com/): Book by Blockchain Commons.
