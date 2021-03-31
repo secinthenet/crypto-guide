@@ -920,6 +920,8 @@ booting it from a USB stick or DVD.
     guide for using Qubes and Whonix to run Electrum in an offline VM, connected
     to a separate VM serving an Electrum personal server.
 - [Whonix](https://www.whonix.org/): TODO.
+- [NixOS](https://nixos.org/): Facilitates reproducible builds which is great
+  for security and bit rot.
 - [Kodachi](https://github.com/WMAL/kodachi): Live Linux distro similar to
   Tails: amnesic by default (no data persistence) and uses Tor to route all
   traffic. Doesn't look maintained based on Github activity.
