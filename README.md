@@ -685,7 +685,7 @@ reducing the risk of malware being able to communicate with it to steal secrets.
   formats (hex, BIP39, binary, etc.). See also the
   [comprehensive manual](https://github.com/BlockchainCommons/bc-seedtool-cli/blob/master/Docs/MANUAL.md).
 - [github.com/trezor/python-mnemonic](https://github.com/trezor/python-mnemonic):
-  reference implementation for BIP39 by Trezor.
+  reference implementation of BIP39 by Trezor.
 - [github.com/tyler-smith/go-bip39](https://github.com/tyler-smith/go-bip39):
   golang implementation of BIP39.
 - [github.com/taelfrinn/Bip39-diceware](https://github.com/taelfrinn/Bip39-diceware):
