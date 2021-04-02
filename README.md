@@ -268,19 +268,25 @@ external webcam, alternatively use audio codes via amodem.
   - Sound (microphone, speakers)
 - Install Linux Tails to a USB/DVD using the
   [installation instructions](https://tails.boum.org/install/index.en.html)
+
   - Download the latest image and signature
   - import the Tails developers PGP key
   - Verify the Tails image signature
-  - Burn Tails image to USB/DVD
+  - Burn Tails image to USB/DVD (replace `${VERSION}`):
+
+    ```sh
+    sudo dd if=tails-${VERSION}.img of=/dev/sdb bs=16M conv=fsync oflag=direct status=progress
+    ```
+
   - If the laptop only supports BIOS/MBR (usually old laptops manufactured
     before 2012 or so), see the next subsection
-- Boot tails and shutdown (required for Tails to increase its own partition)
+
 - Generate a strong password and store it.
-- Use Gnome Disks (another option is GParted) to create a separate encrypted
-  partition (either in the boot device or another external storage device) and
-  use the password from the previous step. Note that this can be done from Tails
-  after booting it, but it only works in EFI/GPT mode, and it's easier to do it
-  before booting Tails.
+- Use Gnome Disks or GParted to create a separate encrypted partition (either in
+  the boot device or another external storage device) and use the password from
+  the previous step. This can be done either from inside Tails after booting it,
+  or in another Linux machine. Note that Tails has a built-in GUI for that, but
+  it only works in EFI/GPT mode, and it's easier to do it before booting Tails.
 - Decrypt and mount the encrypted partition in the setup computer.
 - Copy the `setup_tails.sh` script and other tools to the encrypted partition.
 
