@@ -274,6 +274,7 @@ external webcam, alternatively use audio codes via amodem.
   - Burn Tails image to USB/DVD
   - If the laptop only supports BIOS/MBR (usually old laptops manufactured
     before 2012 or so), see the next subsection
+- Boot tails and shutdown (required for Tails to increase its own partition)
 - Generate a strong password and store it.
 - Use Gnome Disks (another option is GParted) to create a separate encrypted
   partition (either in the boot device or another external storage device) and
@@ -297,25 +298,31 @@ external webcam, alternatively use audio codes via amodem.
 
 ### Making Tails work in BIOS/MBR mode
 
-The Linux Tails image only supports booting in EFI/GPT mode, so we need to do
-some modifications to the boot device (USB/DVD) to support BIOS/MBR.
+The Linux Tails image uses GPT partitioning and contains the Syslinux MBR boot
+code for GPT. However, some laptops have BIOS firmwares that won't boot because
+without a proper MBR partition table. Therefore, we need to do some
+modifications to the boot device (USB/DVD) to support BIOS/MBR boot.
 
 The first step is to
 [download](https://wiki.syslinux.org/wiki/index.php?title=Download) the archive
 of the latest stable version of Syslinux and extract it to a directory which we
 reference as `${SYSLINUX_DIR}` in the shell code below. Then, run the following
-shell commands in a Linux terminal, where `/dev/sdX` is the Tails boot device.
+shell commands in a Linux terminal, where `${DEV}` is the Tails boot device.
 
 ```sh
-# Convert the partition table to MBR
-sudo sgdisk --gpttombr /dev/sdX
+# Convert the partition table to MBR/msdos
+sudo sgdisk --gpttombr "${DEV}"
+if ! sudo parted --script "${DEV}" print | \grep -qi 'partition table: msdos'; then
+  # NOTE: sgdisk sometimes failed to do this and I needed to use gdisk (the
+  # interactive version).
+  echo 'GPT to MBR conversion failed, falling back to gdisk'
+  echo 'Type "r", then "g", then "w"'
+  sudo gdisk "${DEV}"
+fi
 # Make the Tails OS partition bootable
-sudo parted --script /dev/sdX set 1 boot on
-# Mount the Tails boot device
-sudo mkdir -p /mnt/tails
-sudo mount /dev/sdX1 /mnt/tails
-sudo dd bs=440 count=1 conv=notrunc if="${SYSLINUX_DIR}/bios/mbr/mbr.bin" of=/dev/sdX
-sync
+sudo parted --script "${DEV}" set 1 boot on
+# Write the MBR code for msdos partitions to the device
+sudo dd bs=440 count=1 conv=notrunc,fdatasync if="${SYSLINUX_DIR}/bios/mbr/mbr.bin" of="${DEV}"
 ```
 
 Changes considered:
@@ -334,6 +341,7 @@ Changes considered:
 
 References:
 
+- [Syslinux How to Create a Bootable USB: For Linux](https://wiki.syslinux.org/wiki/index.php?title=HowTos#How_to_Create_a_Bootable_USB:_For_Linux)
 - [Syslinux installation wiki](https://wiki.syslinux.org/wiki/index.php?title=Install)
 - [Syslinux MBR installation](https://wiki.syslinux.org/wiki/index.php?title=Mbr)
 - [Syslinux in Arch Linux wiki](https://wiki.archlinux.org/index.php/syslinux)
