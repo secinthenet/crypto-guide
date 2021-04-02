@@ -321,6 +321,7 @@ sudo sgdisk --gpttombr "${DEV}"
 if ! sudo parted --script "${DEV}" print | \grep -qi 'partition table: msdos'; then
   # NOTE: sgdisk sometimes failed to do this and I needed to use gdisk (the
   # interactive version).
+  # TODO: maybe use expect/autoexpect to automate this.
   echo 'GPT to MBR conversion failed, falling back to gdisk'
   echo 'Type "r", then "g", then "w"'
   sudo gdisk "${DEV}"
