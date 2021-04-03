@@ -699,6 +699,11 @@ reducing the risk of malware being able to communicate with it to steal secrets.
   tool for generating entropy and converting external entropy to different
   formats (hex, BIP39, binary, etc.). See also the
   [comprehensive manual](https://github.com/BlockchainCommons/bc-seedtool-cli/blob/master/Docs/MANUAL.md).
+
+  Failed building a static binary (complained about missing `libgcc_s.a`), need
+  to retry in a Docker container to see if it has anything to do with my
+  specific setup.
+
 - [github.com/trezor/python-mnemonic](https://github.com/trezor/python-mnemonic):
   reference implementation of BIP39 by Trezor.
 - [github.com/tyler-smith/go-bip39](https://github.com/tyler-smith/go-bip39):
@@ -723,6 +728,10 @@ reducing the risk of malware being able to communicate with it to steal secrets.
   golang library to compute BIP32 derivations with an emphasis on Ethereum. As
   of 2019-12-04, looks tested and maintained.
 - [bc-keytool-cli](https://github.com/BlockchainCommons/bc-keytool-cli)
+- [go-bip32](https://github.com/tyler-smith/go-bip32)
+- [bip32-utils](https://github.com/bitcoinjs/bip32-utils)
+- <https://github.com/richardkiss/pycoin>
+- <https://github.com/cryptocoinjs/hdkey>
 - [pywallet](https://github.com/ranaroussi/pywallet): HD wallet creator that
   supports BIP44 (but requires forking to support BIP49). As of 2019-12-04, has
   many open issues with no response from the author.
@@ -945,15 +954,10 @@ booting it from a USB stick or DVD.
 
 - <https://github.com/BlockchainCommons/spotbit>
 
-### Libraries and CLI tools
+### Other libraries and CLI tools
 
 - <https://github.com/btcsuite/btcutil>
 - <https://github.com/1200wd/bitcoinlib>
-- [bc-seedtool-cli](https://github.com/BlockchainCommons/bc-seedtool-cli):
-  failed building a static binary (complained about missing `libgcc_s.a`), need
-  to retry in a Docker container to see if it has anything to do with my
-  specific setup.
-- [bc-keytool-cli](https://github.com/BlockchainCommons/bc-keytool-cli)
 - <https://github.com/ethereumjs/ethereumjs-tx>
 - <https://github.com/GFJHogue/ethereum-tx-decoder>: Ethereum transaction
   decoder in NodeJS
