@@ -720,7 +720,7 @@ reducing the risk of malware being able to communicate with it to steal secrets.
   by Jonathan Cross.
 - [github.com/bip32JP/bip32JP.github.io](https://github.com/bip32JP/bip32JP.github.io)
 
-### HD wallets address derivation
+### HD wallets address derivation (BIP32)
 
 - [xpub-converter](https://github.com/Casa/xpub-converter): web tool for
   converting extended public keys between different versions.
@@ -729,6 +729,9 @@ reducing the risk of malware being able to communicate with it to steal secrets.
   of 2019-12-04, looks tested and maintained.
 - [bc-keytool-cli](https://github.com/BlockchainCommons/bc-keytool-cli)
 - [go-bip32](https://github.com/tyler-smith/go-bip32)
+- <https://github.com/modood/btckeygen>
+- <https://github.com/foxnut/go-hdwallet>
+- <https://github.com/dan-da/hd-wallet-derive>
 - [bip32-utils](https://github.com/bitcoinjs/bip32-utils)
 - <https://github.com/richardkiss/pycoin>
 - <https://github.com/cryptocoinjs/hdkey>
@@ -962,7 +965,6 @@ booting it from a USB stick or DVD.
 - <https://github.com/GFJHogue/ethereum-tx-decoder>: Ethereum transaction
   decoder in NodeJS
 - <https://github.com/ConsenSys/abi-decoder>
-- <https://github.com/foxnut/go-hdwallet>
 - <https://github.com/richardkiss/pycoin>
 - <https://github.com/alexbosworth/psbt>
 - <https://github.com/ofek/bit>
