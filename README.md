@@ -765,6 +765,9 @@ reducing the risk of malware being able to communicate with it to steal secrets.
 
 - `qrencode` can be used to generate QR codes
 - `zbar` can be used to decode QR codes from images or a webcam
+- <https://github.com/divan/txqr>: golang library for communication via animated
+  QR codes
+  - [Issue](https://github.com/divan/txqr/issues/12) with reference to more projects
 - [AirGap](https://airgap.it/): OSS mobile apps for managing the secrets in a
   dedicated offline device, and then broadcasting transactions with another
   "regular" internet connected device. Communication is done with QR codes.
