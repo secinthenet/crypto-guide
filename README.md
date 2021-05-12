@@ -293,9 +293,10 @@ external webcam, alternatively use audio codes via amodem.
 ### Booting quarantined laptop
 
 - Boot Tails.
-- In the Tails greeter, select Additional Settings and then disable networking
-  and create an admin password (you can reuse the previous password used for
-  disk encryption).
+- In the Tails greeter, select Additional Settings:
+  - Disable all networking
+  - Create an admin password (you can reuse the previous password used for disk
+    encryption).
 - Open the file manager and click on the encrypted partition to decrypt and
   mount it.
 - Open a terminal in the mount point of the encrypted partition (can be accessed
@@ -767,7 +768,8 @@ reducing the risk of malware being able to communicate with it to steal secrets.
 - `zbar` can be used to decode QR codes from images or a webcam
 - <https://github.com/divan/txqr>: golang library for communication via animated
   QR codes
-  - [Issue](https://github.com/divan/txqr/issues/12) with reference to more projects
+  - [Issue](https://github.com/divan/txqr/issues/12) with reference to more
+    projects
 - [AirGap](https://airgap.it/): OSS mobile apps for managing the secrets in a
   dedicated offline device, and then broadcasting transactions with another
   "regular" internet connected device. Communication is done with QR codes.
