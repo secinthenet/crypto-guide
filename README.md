@@ -90,8 +90,10 @@
 - Cover the purchase of cryptocoins. Only secure storage and transacting are in
   scope.
 - Be friendly to novices. This guide aims to be succinct and assumes familiarly
-  with concepts such as HD wallets, BIP32/39/43/44/45, Segwit, and Multisig
-  wallets. If those don't mean much to you, this guide is probably not for you.
+  with concepts such as HD wallets (BIP32), mnemonic seed phrases (BIP39),
+  multi-account hierarchy for deterministic wallets (BIP44, BIP49, BIP84),
+  Segwit (BIP141), Bech32 (BIP173), and multisig wallets. If those don't mean
+  much to you, this guide is probably not for you.
 
 ## Disclaimer
 
@@ -117,8 +119,7 @@ trust strangers on the internet with anything important.
 
 - Malware and attacks originating from the Internet have a very high risk. Any
   malware infection in a device that handles secrets can compromise all the
-  secrets the device holds, and possibly other secrets in devices with physical
-  proximity.
+  secrets the device holds.
 - Human errors in executing protocols are highly likely.
 - Any physical location can be compromised, whether by theft or physical damage.
 - Physical attacks have a low risk, but defending against simple ones (burglars
@@ -133,12 +134,12 @@ trust strangers on the internet with anything important.
 The pseudo-random byte sequence of length 128-512 bits used in the first step of
 BIP32's
 [master key derivation](https://github.com/bitcoin/bips/blob/master/bip-0032.mediawiki#master-key-generation).
-Typically, backed up using BIP39 mnemonics.
+Typically, backed up via [BIP39 mnemonics](#bip39-mnemonic).
 
 ### BIP32 master key
 
-The extended private key at the top of the BIP32 hierarchy. Usually denoted as
-`m` in BIP32 derivations.
+The extended private key at the top of the BIP32 hierarchy. Denoted as `m` in
+BIP32 derivations.
 
 ### BIP39 entropy
 
@@ -173,15 +174,15 @@ Any information that can help an attacker to spend funds. This includes:
 
 ### Seeds
 
-Anything that can be used to derive private keys, including BIP32 seeds, BIP39
-mnemonics, and individual private keys.
+A general term for anything that can be used to derive private keys, including
+BIP32 seeds, BIP39 mnemonics, and individual private keys.
 
 ### Online Read-Only Wallet
 
-A wallet that only knows public keys and/or addresses, but not any seed. This
-wallet is only used for tracking funds in existing addresses and generating
+A wallet that only knows addresses (and possibly public keys), but not any seed.
+This wallet is only used for tracking funds in existing addresses and generating
 addresses for receiving new coins. It must be online because tracking funds
-requires the accessing the blockchain (but generating addresses can be done
+requires access to the blockchain (in contrast, generating addresses can be done
 offline).
 
 ### Offline Signing Wallet
@@ -208,21 +209,21 @@ always possible to use different wallets to process multisig transactions.
 - Prepare secure quarantined devices (AKA eternally air gapped).
 - Generate seeds and auxiliary secrets using one or more quarantined devices.
 - Verify the seeds derive the same master public keys (xpub/ypub/zpub) with at
-  least two implementations that are as independent as possible (including their
-  transitive dependencies).
-- Transfer master public keys (xpub/ypub/zpub) to the online read-only wallet.
+  least two implementations that are as independent as possible (different
+  authors, different programming languages, different libraries used by the
+  code).
+- Transfer a set of addresses to the online read-only wallet.
 - Verify that the new wallet can receive and spend funds (see subsection below).
 - Back up and distribute both the secrets and master public keys to paper in
   multiple locations.
 
 #### Verify that the wallet is spendable
 
-- Generate a new address `address1` in the online read-only wallet.
 - Send a **small** amount of funds from your old wallet (can be an exchange) to
-  `address1`.
+  the first address in the new wallet, `address1`.
 - Verify that the online read-only wallet can detect that `address1` received
   funds.
-- Generate a new address `address2` in the online read-only wallet.
+- Select a new address `address2` in the online read-only wallet.
 - [Send](#sending-funds) the funds from `address1` to `address2`.
 - Verify that the online read-only wallet can detect that `address1` moved funds
   to `address2`.
@@ -237,14 +238,14 @@ always possible to use different wallets to process multisig transactions.
     if using multisig)
   - [Transfer](#secure-air-gapped-communication) the (partially) signed
     transaction to the online read-only wallet.
-- (Multisig only): Combine the partially signed transactions in the online
-  read-only wallet to a final signed transaction.
+- (Multisig only): Combine and finalize the partially signed transactions in the
+  online read-only wallet.
 - Broadcast the transaction from the online read-only wallet.
 
 ### Receiving funds
 
-- Generate a new address in the online read-only wallet and provide it to the
-  sender.
+- Select the first unused address in the online read-only wallet and provide it
+  to the sender.
 
 ### Testing backups
 
@@ -257,6 +258,9 @@ always possible to use different wallets to process multisig transactions.
 TODO: Write guidelines for buying laptop (see Glacier for reference). Preferably
 use a laptop with a camera for communicating with QR codes, or connect an
 external webcam, alternatively use audio codes via amodem.
+
+A laptop that can boot from a DVD or SD card (with built-in support and not via
+an external USB device) is also preferable.
 
 ### Creating boot USB
 
@@ -442,10 +446,14 @@ still be able to restore the seed.
 
 A similar option is to use SSS to split a _passphrase_ to the seed, instead of
 the seed itself. The advantage of doing this is that the passphrase is usually
-smaller, so the SSS shares will also be smaller and easier to store.
+smaller, so the SSS shares will also be smaller and easier to store. That said,
+some SSS standards such as
+[SLIP39](https://github.com/satoshilabs/slips/blob/master/slip-0039.md) have
+length limits (minimum 128 bits for SLIP39), so in this case splitting the
+passphrase may not have an advantage.
 
-See [SLIP-0039](https://github.com/satoshilabs/slips/blob/master/slip-0039.md)
-for more details on this approach.
+See [SLIP39](https://github.com/satoshilabs/slips/blob/master/slip-0039.md) for
+more details on this approach.
 
 ### Multisig seeds
 
@@ -458,17 +466,20 @@ newer [BIP16](https://github.com/bitcoin/bips/blob/master/bip-0016.mediawiki).
 
 ### Discussion: split vs multisig seeds
 
-- Multisig seeds are standardized and supported at the protocol level
-  ([BIP45](https://github.com/bitcoin/bips/blob/master/bip-0045.mediawiki)),
-  while split seeds require custom software. This means that multisig seeds are
-  likely to have better software support over time. For example, they are
-  already supported by a few wallets.
+- Multisig seeds are partially standardized (via the unofficial
+  ["BIP48"](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2020-December/018308.html)
+  used by multiple wallets). In Bitcoin, multisig transactions are also
+  supported at the protocol level
+  ([BIP11](https://github.com/bitcoin/bips/blob/master/bip-0011.mediawiki)). In
+  contrast, split seeds require more custom software. This means that multisig
+  seeds are likely to have better software support over time. For example, they
+  are already supported by some wallets.
 - When the secrets are stored in **cold storage**, both split and multisig
   require `M/N` shares to spend funds. In both cases, the user can choose `M`
   and `N` to fit their specific security requirements.
 - Multisig enables you to maintain the property that at no point in time there
   is sufficient information to spend funds in a single wallet/place, even when
-  sending funds. When you want to spend funds, you generate a transaction, pass
+  spending funds. When you want to spend funds, you generate a transaction, pass
   it to each of the wallets for signing, and then broadcast it to the network.
   Importantly, no single wallet will have sufficient information to spend funds
   during the whole process. The upshot is that multisig seeds enable you to
@@ -489,7 +500,7 @@ newer [BIP16](https://github.com/bitcoin/bips/blob/master/bip-0016.mediawiki).
 
 Signing transactions requires moving data between the offline signing wallets
 and an online read-only wallet. Using USB for such a task is risky, as the USB
-stack is complex and it has been exploited in the past to infect computers with
+stack is complex and has been exploited in the past to infect computers with
 malware ([Stuxnet](https://www.wikiwand.com/en/Stuxnet),
 [BadUSB](https://hackaday.com/tag/badusb/), etc.). There are two alternative
 mechanisms for communication that avoid the complexity of USB and other
@@ -543,16 +554,16 @@ currencies.
 Trezor seems better to me since it's fully OSS (hardware, firmware, and
 software), and both of the founders have been active in the Bitcoin community
 for a long time and seem to have a good reputation. That said, Trezor had at
-least one critical issue in the past—it
+least one critical issue in the past — it
 [stored the device PIN in plaintext](https://news.ycombinator.com/item?id=15589718).
 To their defense, they quickly fix reported security issues, and are responsive
 in general.
 
 Ledger also had
 [serious security issues](https://saleemrashid.com/2018/03/20/breaking-ledger-security-model/)
-in the past, and their response wasn't great—according to linked article, their
-CEO "made some comments on Reddit which were fraught with technical inaccuracy".
-See the
+in the past, and their response wasn't great — according to the linked article,
+their CEO "made some comments on Reddit which were fraught with technical
+inaccuracy". See the
 [Interaction with Ledger](https://saleemrashid.com/2018/03/20/breaking-ledger-security-model/#interaction-with-ledger)
 section for more details.
 
@@ -595,7 +606,12 @@ Methods that can be used to avoid this:
 ### Stripping down OS installation to bare minimum
 
 By default, most distributions contain a lot of software packages that are not
-required for this protocol, which introduces more risk.
+required for this protocol, which introduces more risk. It's possible to build a
+bootable Linux ISO purpose-built to run the software of the offline signing
+wallet (similar to [BitKey](https://github.com/bitkey/bitkey)). However, this
+also introduces security risks in the ISO build process, and makes it harder to
+correctly verify the ISO, in contrast to popular distros where it's easy to
+verify the hashes/signatures of the ISO in multiple sources.
 
 ### Avoiding X11
 
@@ -609,7 +625,7 @@ can be overcome in theory by rendering the video to the terminal.
 
 ### Diversifying the operating system
 
-Using another operating system like OpenBSD in the offline signing wallet
+Using another operating system like OpenBSD in the offline signing wallet.
 
 ### Using eternally quarantined printers
 
@@ -877,16 +893,16 @@ reducing the risk of malware being able to communicate with it to steal secrets.
 
 - [python-shamir-mnemonic](https://github.com/trezor/python-shamir-mnemonic):
   reference implementation of
-  [SLIP-0039](https://github.com/satoshilabs/slips/blob/master/slip-0039.md):
+  [SLIP39](https://github.com/satoshilabs/slips/blob/master/slip-0039.md):
   Shamir's Secret-Sharing for Mnemonic Codes.
 - [github.com/iancoleman/slip39](https://github.com/iancoleman/slip39)
   - Uses [slip39-js](https://github.com/ilap/slip39-js) internally.
 - [Hermit](https://github.com/unchained-capital/hermit): CLI wallet implementing
   [split seeds](#split-seeds) following
-  [SLIP-0039](https://github.com/satoshilabs/slips/blob/master/slip-0039.md).
-- [bc-slip39](https://github.com/BlockchainCommons/bc-slip39): SLIP-39
+  [SLIP39](https://github.com/satoshilabs/slips/blob/master/slip-0039.md).
+- [bc-slip39](https://github.com/BlockchainCommons/bc-slip39): SLIP39
   implementation in C from Blockchain Commons.
-- [slip39-rust](https://github.com/Internet-of-People/slip39-rust): SLIP-39
+- [slip39-rust](https://github.com/Internet-of-People/slip39-rust): SLIP39
   implementation in Rust.
 
 ### Split HD seeds and secret sharing (non-standard implementations)
@@ -897,7 +913,7 @@ reducing the risk of malware being able to communicate with it to steal secrets.
 - [shamir39](https://github.com/iancoleman/shamir39)
 - [Guide on using Shamir's Secret Sharing](https://medium.com/@markstar/backup-your-trezor-ledger-using-shamirs-secret-sharing-972e98101839)
   to back up the BIP39 seed. Uses a non-standardized SSS implementation, so
-  SLIP-39 should be preferred.
+  SLIP39 should be preferred.
 - [github.com/grempe/secrets.js](https://github.com/grempe/secrets.js): SSS
   implementation in JavaScript. Reports that it successfully passed a security
   audit. Latest real activity from September 2019.
